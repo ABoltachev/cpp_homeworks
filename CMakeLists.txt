@@ -3,4 +3,4 @@ project(homeworks_tests)
 
 set(CMAKE_CXX_STANDARD 14)
 
-add_executable(main main.cpp address_book.cpp address_book.h)
+add_executable(main main.cpp)
