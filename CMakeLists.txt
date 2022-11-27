@@ -1,8 +1,6 @@
-cmake_minimum_required(VERSION 3.16)
+cmake_minimum_required(VERSION 3.23)
+project(untitled14)
 
-project(homeworks_tests)
+set(CMAKE_CXX_STANDARD 14)
 
-set(CMAKE_CXX_STANDARD 17)
-set(CMAKE_CXX_STANDARD_REQUIRED True)
-
-add_executable(main main.cpp)
+add_executable(untitled14 main.cpp address_book.cpp address_book.h)
