@@ -72,3 +72,39 @@ std::ostream& operator<<(std::ostream& cout,const AddressBook::Employee& e)
 
     return cout;
 }
+
+AddressBook::Employee& AddressBook::operator[](std::string name)
+{
+    for(auto& e : this->book)
+        if(e.name == name)
+            return e;
+    throw 1;
+}
+
+AddressBook::Employee& AddressBook::operator[](uint32_t id)
+{
+    for(auto& e : this->book)
+        if(e.id == id)
+            return e;
+    throw 1;
+}
+
+AddressBook AddressBook::operator+(AddressBook::Employee e) const
+{
+    AddressBook res(*this);
+    res.book.push_front(e);
+
+    return res;
+}
+
+AddressBook AddressBook::operator-(uint32_t id) const
+{
+    AddressBook res(*this);
+    for(auto it = res.book.begin(); it != res.book.end(); ++it)
+        if(it->id == id)
+        {
+            res.book.erase(it);
+            break;
+        }
+    return res;
+}
