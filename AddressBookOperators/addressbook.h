@@ -16,7 +16,7 @@ public:
         std::string name;
         uint16_t grade;
 
-        explicit Employee(const uint32_t& iniz_id = 0, const std::string& iniz_name = "DummyBob", const uint16_t& iniz_grade = 0) {
+         Employee(const uint32_t& iniz_id = 0, const std::string& iniz_name = "DummyBob", const uint16_t& iniz_grade = 0) {
             id = iniz_id, name = iniz_name, grade = iniz_grade;
         }
 
@@ -38,7 +38,7 @@ public:
     std::forward_list<Employee> book;
 
     Addressbook() = default;
-    explicit Addressbook(const std::forward_list<Employee>& iniz_book) {
+     Addressbook(const std::forward_list<Employee>& iniz_book) {
         book = iniz_book;
     }
     Addressbook(const Addressbook &copy_book) {
