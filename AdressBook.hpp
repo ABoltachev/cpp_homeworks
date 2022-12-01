@@ -3,7 +3,6 @@
 #include <iostream>
 #include <cassert>
 
-// class Employee;
 class AdressBook;
 
 class Employee
@@ -19,9 +18,9 @@ public:
 private:
 	friend class AdressBook;
 
-	uint32_t id;
+	uint32_t id = 0;
 	std::string name;
-	uint16_t grade;
+	uint16_t grade = 0;
 };
 
 class AdressBook 
@@ -30,9 +29,9 @@ private:
 	struct node 
 	{
 		node* next;
-		Employee* employee;
+		Employee employee;
 		node();
-		~node();
+		// ~node();
 
 		void recursive_clear();
 	};
@@ -60,6 +59,10 @@ public:
 
 	AdressBook operator+(const Employee& employee) const;
 	AdressBook operator-(uint32_t id) const;
+	AdressBook& operator=(const AdressBook& copy);
+
+	const Employee& operator[](uint32_t id) const;
+	const Employee& operator[](const std::string& name) const;
 
 	Employee& operator[](uint32_t id);
 	Employee& operator[](const std::string& name);

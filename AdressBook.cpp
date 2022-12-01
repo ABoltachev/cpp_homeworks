@@ -2,13 +2,8 @@
 
 AdressBook::node::node() 
 {
-	this->employee = nullptr;
+	employee = Employee();
 	this->next = nullptr;
-}
-
-AdressBook::node::~node() 
-{
-	delete employee;
 }
 
 AdressBook::AdressBook() 
@@ -20,7 +15,7 @@ AdressBook::AdressBook()
 void AdressBook::_push_first(const Employee& employee) 
 {
 	head = new node;
-	head->employee = new Employee(employee);
+	head->employee = employee;
 	__size__ = 1;
 }
 
@@ -31,7 +26,7 @@ void AdressBook::push(const Employee& employee)
 	else
 	{
 		node* new_node = new node;
-		new_node->employee = new Employee(employee);
+		new_node->employee = employee;
 		auto iter = head;
 		while (iter->next)
 			iter = iter->next;
@@ -57,7 +52,7 @@ AdressBook::node* AdressBook::__find__(uint32_t id) const
 	auto iter = head;
 	while (iter)
 	{
-		if (iter->employee->id == id)
+		if (iter->employee.id == id)
 			return iter;
 		iter = iter->next;
 	}
@@ -69,7 +64,7 @@ AdressBook::node* AdressBook::__find__(const std::string& name) const
 	auto iter = head;
 	while (iter)
 	{
-		if (iter->employee->name == name)
+		if (iter->employee.name == name)
 			return iter;
 		iter = iter->next;
 	}
@@ -156,25 +151,31 @@ void AdressBook::node::recursive_clear()
 
 void AdressBook::clear() 
 {
+	if (__size__ == 0)
+		return;
 	head->recursive_clear();
 	delete head;
+	head = nullptr;
+	__size__ = 0;
 }
 
 AdressBook::AdressBook(const AdressBook& copy) 
 {
+	head = nullptr;
+	__size__ = 0;
 	if (&copy == this)
 		return;
 	if (copy.head == nullptr)
 		return;
 	head = new node;
-	head->employee = new Employee(*copy.head->employee);
+	head->employee = copy.head->employee;
 	auto iter_copy = copy.head->next;
 	auto iter = head;
 	while (iter_copy)
 	{
 		iter->next = new node;
 		iter = iter->next;
-		iter->employee = new Employee(*iter_copy->employee);
+		iter->employee = iter_copy->employee;
 		iter_copy = iter_copy->next;
 	}
 	__size__ = copy.__size__;
@@ -191,7 +192,7 @@ std::ostream& operator<<(std::ostream& out, const AdressBook& adress_book)
 	auto iter = adress_book.head;
 	while (iter)
 	{
-		out << *iter->employee << "\r\n";
+		out << iter->employee << "\r\n";
 		iter = iter->next;
 	}
 	return out;
@@ -260,18 +261,68 @@ AdressBook AdressBook::operator-(uint32_t id) const
 Employee& AdressBook::operator[](uint32_t id) 
 {
 	auto object = __find__(id);
-	assert(object);
-	return *(object->employee);
+	if (object == nullptr)
+	{
+		Employee new_emp;
+		new_emp.id = id;
+		push(new_emp);
+		object = __find__(id);
+	}
+	return object->employee;
 }
 
 Employee& AdressBook::operator[](const std::string& name) 
 {
 	auto object = __find__(name);
-	assert(object);
-	return *(object->employee);
+	if (object == nullptr)
+	{
+		Employee new_emp;
+		new_emp.name = name;
+		push(new_emp);
+		object = __find__(name);
+	}
+	return object->employee;
 }
 
 AdressBook::~AdressBook() 
 {
 	clear();
+}
+
+AdressBook& AdressBook::operator=(const AdressBook& copy) 
+{
+	if (&copy == this)
+		return *this;
+	else
+	{
+		clear();
+		if (copy.head == nullptr)
+			return *this;
+		head = new node;
+		head->employee = copy.head->employee;
+		auto iter_copy = copy.head->next;
+		auto iter = head;
+		while (iter_copy)
+		{
+			iter->next = new node;
+			iter = iter->next;
+			iter->employee = iter_copy->employee;
+			iter_copy = iter_copy->next;
+		}
+		__size__ = copy.__size__;
+	}
+}
+
+const Employee& AdressBook::operator[](uint32_t id) const
+{
+	auto object = __find__(id);
+	assert(object);
+	return object->employee;
+}
+
+const Employee& AdressBook::operator[](const std::string& name) const 
+{
+	auto object = __find__(name);
+	assert(object);
+	return object->employee;
 }
