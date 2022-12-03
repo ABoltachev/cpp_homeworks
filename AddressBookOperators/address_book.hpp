@@ -8,16 +8,20 @@ namespace AB
 
 class Employee
 {
-   public:
     uint32_t m_id;
     std::string m_name;
     uint16_t m_grade;
 
-    bool operator==(const Employee& emp);
-    bool operator!=(const Employee& emp);
+   public:
+    Employee() = default;
+    Employee(uint32_t id, std::string name, uint16_t grade) : m_id(id), m_name(name), m_grade(grade){};
+    bool operator==(const Employee& emp) const;
+    bool operator!=(const Employee& emp) const;
 
     friend std::ostream& operator<<(std::ostream& out, const Employee& emp);
     friend std::istream& operator>>(std::istream& in, Employee& emp);
+
+    friend class AddressBook;
 };
 
 class AddressBook
@@ -45,7 +49,11 @@ class AddressBook
     void add(const Employee& employee);
     void Delete(const size_t id);
     Employee& find(const size_t id);
+    Employee& find(const size_t id) const;
+
     Employee& find(const std::string& name);
+    Employee& find(const std::string& name) const;
+
     void clear();
 
     AddressBook& operator=(const AddressBook& other);
@@ -54,11 +62,12 @@ class AddressBook
     void operator-(const size_t id);
 
     Employee& operator[](const size_t id);
+    const Employee& operator[](const size_t id) const;
+
     Employee& operator[](const std::string& name);
+    const Employee& operator[](const std::string& name) const;
 
     friend std::ostream& operator<<(std::ostream& out, const AddressBook& address_book);
-
-    friend class Employee;
 };
 
 }  // namespace AB

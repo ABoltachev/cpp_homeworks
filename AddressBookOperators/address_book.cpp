@@ -3,12 +3,12 @@
 namespace AB
 {
 
-bool Employee::operator==(const Employee& emp)
+bool Employee::operator==(const Employee& emp) const
 {
     return (m_id == emp.m_id) && (m_name == emp.m_name) && (m_grade == emp.m_grade);
 }
 
-bool Employee::operator!=(const Employee& emp)
+bool Employee::operator!=(const Employee& emp) const
 {
     return !(*this == emp);
 }
@@ -30,17 +30,11 @@ std::istream& operator>>(std::istream& in, Employee& emp)
 
 AddressBook::Node::Node(const Node& node)
 {
-    if (this == &node)
-        return;
-
     m_data = node.m_data;
 }
 
 AddressBook::Node& AddressBook::Node::operator=(const Node& other)
 {
-    if (this == &other)
-        return;
-
     m_data = other.m_data;
     return *this;
 }
@@ -125,6 +119,11 @@ Employee& AddressBook::find(const size_t id)
     return cur->m_data;
 }
 
+Employee& AddressBook::find(const size_t id) const
+{
+    return find(id);
+}
+
 Employee& AddressBook::find(const std::string& name)
 {
     if (!m_list) {
@@ -143,6 +142,11 @@ Employee& AddressBook::find(const std::string& name)
     }
 
     return cur->m_data;
+}
+
+Employee& AddressBook::find(const std::string& name) const
+{
+    return find(name);
 }
 
 void AddressBook::clear()
@@ -191,12 +195,23 @@ Employee& AddressBook::operator[](const size_t id)
     return find(id);
 }
 
+const Employee& AddressBook::operator[](const size_t id) const
+{
+    return find(id);
+}
+
 Employee& AddressBook::operator[](const std::string& name)
 {
     return find(name);
 }
 
-std::ostream& operator<<(std::ostream& out, const AddressBook& address_book)
+const Employee& AddressBook::operator[](const std::string& name) const
+{
+    return find(name);
+}
+
+std::ostream&
+operator<<(std::ostream& out, const AddressBook& address_book)
 {
     AddressBook::Node* cur = address_book.m_list;
 
