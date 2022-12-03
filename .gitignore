@@ -1,4 +1,8 @@
 *build*
 CMakeLists.txt
 main.cpp
+<<<<<<< HEAD
 .idea
+=======
+.idea/
+>>>>>>> hw_vvtsygankov
