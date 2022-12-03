@@ -12,11 +12,11 @@ namespace AddressBookLib {
         friend class AddressBook;
     public:
         Employee() = default;
-        Employee(uint32_t id, const std::string name, uint16_t grade): m_id(id), m_name(name), m_grade(grade)
+        Employee(uint32_t id, const std::string &name, uint16_t grade): m_id(id), m_name(name), m_grade(grade)
         {
         }
 
-        void print();
+        void print() const;
 
         friend std::ostream& operator<< (std::ostream &out, const Employee &employee);
         friend std::istream& operator>> (std::istream &in, Employee &employee);

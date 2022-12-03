@@ -20,13 +20,13 @@ namespace AddressBookLib {
         void clear();
 
         friend std::ostream& operator<< (std::ostream &out, const AddressBook &book);
-        void print();
+        void print() const;
 
         AddressBook& operator+= (Employee &employee);
         AddressBook& operator-= (Employee &employee);
 
-        Employee& operator[] (const int index);
-        Employee& operator[] (const std::string& index_name);
+        Employee const& operator[] (const int index);
+        Employee const& operator[] (const std::string& index_name);
     };
 };
 

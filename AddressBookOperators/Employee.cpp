@@ -2,7 +2,7 @@
 #include "Employee.h"
 
 namespace AddressBookLib {
-    void Employee::print() {
+    void Employee::print() const {
         std::cout << *this << std::endl;
     }
 

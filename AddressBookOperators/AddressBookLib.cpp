@@ -56,7 +56,7 @@ namespace AddressBookLib {
         return out;
     }
 
-    void AddressBook::print() {
+    void AddressBook::print() const {
         std::cout << *this << std::endl;
     }
 
@@ -70,11 +70,11 @@ namespace AddressBookLib {
         return *this;
     }
 
-    Employee &AddressBook::operator[](const int index) {
+    Employee const& AddressBook::operator[](const int index) {
         return findRecordById(index);
     }
 
-    Employee &AddressBook::operator[](const std::string& index_name) {
+    Employee const& AddressBook::operator[](const std::string& index_name) {
         return findRecordByName(index_name);
     }
 }
