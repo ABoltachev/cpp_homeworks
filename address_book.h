@@ -19,7 +19,7 @@ public:
     bool operator ==(const Employee& other) const;
     bool operator !=(const Employee & other) const;
     Employee() = default;
-    Employee(uint32_t id, std::string name, uint16_t grade){m_id = id;m_name = name;m_grade = grade;}
+    Employee(uint32_t id, std::string& name, uint16_t grade){m_id = id;m_name = name;m_grade = grade;}
     Employee(const Employee& old_employee){m_id = old_employee.m_id; m_name = old_employee.m_name; m_grade = old_employee.m_grade;}
 };
 class AddressBook
