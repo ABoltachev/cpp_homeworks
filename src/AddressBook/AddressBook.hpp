@@ -16,10 +16,7 @@ public:
     void clear();
     bool del(uint32_t id);
     void add(const Employee &employee);
-<<<<<<< HEAD
     void add(const AddressBook &addressBook);
-=======
->>>>>>> hw_vvtsygankov
     [[nodiscard]] std::optional<Employee> find(uint32_t id);
     [[nodiscard]] std::forward_list<Employee> getEmployers();
     [[nodiscard]] std::forward_list<Employee> find(const std::string &name);
@@ -29,15 +26,9 @@ public:
     const Employee &operator[](uint32_t id) const;
     const Employee &operator[](const std::string &name) const;
     AddressBook &operator+=(const Employee &employee);
-<<<<<<< HEAD
     AddressBook &operator+=(const AddressBook &addressBook);
     friend AddressBook operator+(AddressBook lhs, const Employee &rhs);
     friend AddressBook operator+(const AddressBook &lhs, const AddressBook &rhs);
     AddressBook &operator-=(uint32_t id);
     friend AddressBook operator-(AddressBook addressBook, uint32_t id);
-=======
-    friend AddressBook operator+(AddressBook ab, const Employee &employee);
-    AddressBook &operator-=(uint32_t id);
-    friend AddressBook operator-(AddressBook ab, uint32_t id);
->>>>>>> hw_vvtsygankov
 };
