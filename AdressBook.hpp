@@ -1,9 +1,10 @@
+#ifndef ADRESS_BOOK
+#define ADRESS_BOOK
+
 #include <stdint.h>
 #include <string>
 #include <iostream>
 #include <cassert>
-
-class AdressBook;
 
 class Employee
 {
@@ -71,3 +72,5 @@ public:
 
 	~AdressBook();
 };
+
+#endif

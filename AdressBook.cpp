@@ -74,6 +74,7 @@ AdressBook::node* AdressBook::__find__(const std::string& name) const
 void AdressBook::_pop_last() 
 {
 	delete head;
+	head = nullptr;
 	__size__ = 0;
 }
 
@@ -105,6 +106,7 @@ void AdressBook::pop_back()
 	while (iter->next->next)
 		iter = iter->next;
 	delete iter->next;
+	iter->next = nullptr;
 	__size__--;
 }
 
@@ -147,6 +149,7 @@ void AdressBook::node::recursive_clear()
 	if (next)
 		next->recursive_clear();
 	delete next;
+	next = nullptr;
 }
 
 void AdressBook::clear() 
