@@ -6,7 +6,6 @@
 
 #include <iostream>
 #include <cstdint>
-class AddressBook;
 class Employee
 {
 private:
@@ -16,9 +15,10 @@ private:
     friend class AddressBook;
 public:
     friend std::istream& operator>> (std::istream& , Employee&);
-    friend std::ostream& operator<<(std::ostream&, Employee&);
-    bool operator ==(Employee& other);
-    bool operator !=(Employee & other);
+    friend std::ostream& operator<<( std::ostream&, const Employee&);
+    bool operator ==(const Employee& other) const;
+    bool operator !=(const Employee & other) const;
+    Employee() = default;
     Employee(uint32_t id, std::string name, uint16_t grade){m_id = id;m_name = name;m_grade = grade;}
     Employee(const Employee& old_employee){m_id = old_employee.m_id; m_name = old_employee.m_name; m_grade = old_employee.m_grade;}
 };
@@ -39,16 +39,17 @@ public:
     AddressBook(){m_head=nullptr;m_size=0;}
     AddressBook(const AddressBook& book);
     void add_employee(const Employee& new_employee);
-    void add_employee(uint32_t id, std::string name, uint16_t grade);
+    void add_employee(uint32_t id, std::string& name, uint16_t grade);
     void delete_employee(uint32_t id);
     void clear();
-    Node* at ( uint32_t id);
-    Node* at(std::string name);
+    const Node* at (const uint32_t id) const;
+    const Node* at(const std::string& name) const;
     void operator += (const Employee& new_employee);
     void operator -= (uint32_t id);
-    Employee& operator [](uint32_t id);
-    Employee& operator [](std::string name);
-    void print_employees();
+    const Employee& operator [](uint32_t id) const;
+    const Employee& operator [](std::string& name) const;
+    friend std::ostream& operator<<( std::ostream&, const AddressBook&);
+    void print_employees() const;
     ~AddressBook();
 };
 

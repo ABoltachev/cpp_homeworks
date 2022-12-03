@@ -10,16 +10,16 @@ std::istream& operator >> (std::istream& in,Employee& input_employee)
     in >> input_employee.m_id >> input_employee.m_name >> input_employee.m_grade;
     return in;
 }
-std::ostream& operator << (std::ostream& out,Employee& output_employee)
+std::ostream& operator << (std::ostream& out,const Employee& output_employee)
 {
     out <<"id:" <<output_employee.m_id <<" name: "<<output_employee.m_name <<" grade: "<<output_employee.m_grade;
     return out;
 }
-bool Employee::operator== (Employee& other)
+bool Employee::operator== (const Employee& other) const
 {
     return ((m_id == other.m_id) and (m_grade == other.m_grade) and (m_name == other.m_name));
 }
-bool Employee::operator!=(Employee &other)
+bool Employee::operator!=(const Employee &other) const
 {
     return !((m_id == other.m_id) and (m_grade == other.m_grade) and (m_name == other.m_name));
 }
@@ -39,7 +39,7 @@ void AddressBook::add_employee(const Employee& new_employee)
     cur_node->m_next = new Node(new_employee);
 
 }
-void AddressBook::add_employee(uint32_t id, std::string name, uint16_t grade)
+void AddressBook::add_employee(uint32_t id, std::string& name, uint16_t grade)
 {
     add_employee(Employee(id,name,grade));
 }
@@ -59,7 +59,7 @@ void AddressBook::delete_employee(uint32_t id) {
         {
             Node* temp = cur_node->m_next;
             cur_node->m_next = cur_node->m_next->m_next;
-            delete(temp);
+            delete temp;
             m_size--;
             break;
         }
@@ -68,8 +68,7 @@ void AddressBook::delete_employee(uint32_t id) {
 }
 void AddressBook::clear()
 {
-    while(m_head)
-    {
+    while(m_head) {
         delete_employee(m_head->m_data.m_id);
     }
 }
@@ -78,6 +77,12 @@ AddressBook::AddressBook(const AddressBook& book)
     if(m_head)
     {
         clear();
+    }
+    if(book.m_size ==0)
+    {
+        m_head = nullptr;
+        m_size = 0;
+        return;
     }
     Node* cur_old_node = book.m_head;
     m_head = new Node(cur_old_node -> m_data);
@@ -92,7 +97,7 @@ AddressBook::AddressBook(const AddressBook& book)
 
 }
 
-AddressBook::Node* AddressBook::at(uint32_t id)
+const AddressBook::Node* AddressBook::at(const uint32_t id) const
 {
     Node* cur_node = m_head;
     while((cur_node)&&(cur_node->m_data.m_id != id))
@@ -102,7 +107,7 @@ AddressBook::Node* AddressBook::at(uint32_t id)
     assert(cur_node);
     return cur_node;
 }
-AddressBook::Node* AddressBook::at( std::string name)
+const AddressBook::Node* AddressBook::at( const std::string& name) const
 {
     Node* cur_node = m_head;
     while((cur_node) && (cur_node->m_data.m_name != name))
@@ -111,10 +116,18 @@ AddressBook::Node* AddressBook::at( std::string name)
     }
     return cur_node;
 }
-void AddressBook::print_employees() {
+void AddressBook::print_employees() const {
     Node *cur_node = m_head;
     for (int index = 0; index < m_size; index++) {
         std::cout << cur_node->m_data << std::endl;
+        cur_node = cur_node->m_next;
+    }
+}
+std::ostream& operator << (std::ostream& out, const AddressBook& addressBook)
+{
+    AddressBook::Node *cur_node = addressBook.m_head;
+    for (int index = 0; index < addressBook.m_size; index++) {
+        out << cur_node->m_data << std::endl;
         cur_node = cur_node->m_next;
     }
 }
@@ -126,12 +139,12 @@ void AddressBook::operator -= (uint32_t id)
 {
     delete_employee(id);
 }
-Employee& AddressBook::operator[](uint32_t id)
+const Employee& AddressBook::operator[] (uint32_t id) const
 {
     assert(at(id));
     return at(id)->m_data;
 }
-Employee& AddressBook::operator[](std::string name)
+const Employee& AddressBook::operator[](std::string& name) const
 {
     assert(at(name));
     return at(name)->m_data;
