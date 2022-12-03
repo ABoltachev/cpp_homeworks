@@ -9,16 +9,26 @@
 
 
 class Employee {
-public:
+private:
     uint32_t m_id;
     std::string m_name;
     uint16_t m_grade;
+
+public:
+    Employee() = default;
+    Employee(uint32_t id, const std::string &name, uint16_t grade);
+
+    void setUid(uint32_t uid);
+    void setName(std::string& name);
+    void setGrade(uint16_t grade);
 
     bool operator!=(const Employee& other) const;
     bool operator==(const Employee& other) const;
 
     friend std::istream& operator>>(std::istream& in, const Employee& employee);
     friend std::ostream& operator<<(std::ostream& out, const Employee& employee);
+
+    friend class AddressBook;
 };
 
 
@@ -51,8 +61,8 @@ public:
     AddressBook& operator+(const Employee& another);
     AddressBook& operator-(uint32_t id);
 
-    AddressBook& operator[](uint32_t id);
-    AddressBook& operator[](const std::string& name);
+    AddressBook const& operator[](uint32_t id);
+    AddressBook const& operator[](const std::string& name);
 
     friend std::ostream& operator<<(std::ostream& out, const AddressBook& addressBook);
 

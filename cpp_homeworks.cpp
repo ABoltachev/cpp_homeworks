@@ -15,8 +15,18 @@ bool Employee::operator==(const Employee &other) const{
 }
 
 
+void Employee::setUid(uint32_t uid) { m_id = uid; }
+
+void Employee::setName(std::string& name)  { m_name = name; }
+
+void Employee::setGrade(uint16_t grade) { m_grade = grade; }
+
 std::istream& operator>>(std::istream& in, Employee& employee) {
-    in >> employee.m_id >> employee.m_name >> employee.m_grade;
+    uint32_t id;
+    std::string name;
+    uint16_t grade;
+    in >> id >> name >> grade;
+    employee.setUid(id);  employee.setName(name); employee.setGrade(grade);
     return in;
 }
 
@@ -133,12 +143,12 @@ AddressBook& AddressBook::operator-(uint32_t id) {
 }
 
 
-AddressBook& AddressBook::operator[](uint32_t id) {
+AddressBook const& AddressBook::operator[](uint32_t id) {
     findID(id);
 }
 
 
-AddressBook& AddressBook::operator[](const std::string& name) {
+AddressBook const& AddressBook::operator[](const std::string& name) {
     findName(name);
 }
 
