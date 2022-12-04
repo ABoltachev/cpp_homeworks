@@ -64,12 +64,12 @@ namespace AddressBookLibrary {
 		(*book) = new_list;
 	}
 
-	AddressBook& AddressBook::operator [] (uint32_t id) {
+	const AddressBook& AddressBook::operator [] (uint32_t id) {
 		FindByID(&book, id);
 		return *this;
 	}
 
-	void AddressBook::FindByName(list** book, std::string name) {
+	void AddressBook::FindByName(list** book, const std::string& name) {
 		while (*book) {
 			if ((*book)->person.name == name) {
 				std::cout << (*book)->person;
@@ -83,7 +83,7 @@ namespace AddressBookLibrary {
 		(*book) = new_list;
 	}
 
-	AddressBook& AddressBook::operator [] (std::string name) {
+	const AddressBook& AddressBook::operator [] (const std::string& name) {
 		FindByName(&book, name);
 		return *this;
 	}
