@@ -93,7 +93,7 @@ void AddressBook::deleteEmployee(uint32_t id) {
 }
 
 
-AddressBook::Node* AddressBook::findID(uint32_t id) {
+AddressBook::Node* AddressBook::findID(uint32_t id) const{
     Node* current = m_list;
     while (current && (current->m_data.m_id != id)) {
         current = current->next_node;
@@ -103,7 +103,7 @@ AddressBook::Node* AddressBook::findID(uint32_t id) {
 }
 
 
-AddressBook::Node* AddressBook::findName(const std::string &name) {
+AddressBook::Node* AddressBook::findName(const std::string &name) const{
     Node* current = m_list;
     while (current && (current->m_data.m_name != name)) {
         current = current->next_node;
@@ -142,13 +142,19 @@ AddressBook& AddressBook::operator-(uint32_t id) {
     deleteEmployee(id);
 }
 
-
-AddressBook const& AddressBook::operator[](uint32_t id) {
+AddressBook& AddressBook::operator[](uint32_t id) {
     findID(id);
 }
 
+AddressBook& AddressBook::operator[](const std::string& name) {
+    findName(name);
+}
 
-AddressBook const& AddressBook::operator[](const std::string& name) {
+const AddressBook& AddressBook::operator[](uint32_t id) const{
+    findID(id);
+}
+
+const AddressBook& AddressBook::operator[](const std::string& name) const{
     findName(name);
 }
 

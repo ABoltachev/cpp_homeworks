@@ -51,8 +51,8 @@ public:
 
     void addEmployee(const Employee& employee);
 
-    Node* findID(uint32_t id);
-    Node* findName(const std::string& name);
+    Node* findID(uint32_t id) const;
+    Node* findName(const std::string& name) const;
 
     void deleteEmployee(uint32_t id);
     void clearBook();
@@ -61,8 +61,11 @@ public:
     AddressBook& operator+(const Employee& another);
     AddressBook& operator-(uint32_t id);
 
-    AddressBook const& operator[](uint32_t id);
-    AddressBook const& operator[](const std::string& name);
+    AddressBook& operator[](uint32_t id);
+    AddressBook& operator[](const std::string& name);
+
+    const AddressBook& operator[](uint32_t id) const;
+    const AddressBook& operator[](const std::string& name) const;
 
     friend std::ostream& operator<<(std::ostream& out, const AddressBook& addressBook);
 
