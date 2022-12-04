@@ -17,6 +17,8 @@ namespace AddressBookLib {
         void removeRecordById(uint32_t id);
         Employee& findRecordById(uint32_t id);
         Employee& findRecordByName(const std::string &name);
+        [[nodiscard]] Employee const& findRecordById(uint32_t id) const;
+        [[nodiscard]] Employee const& findRecordByName(const std::string &name) const;
         void clear();
 
         friend std::ostream& operator<< (std::ostream &out, const AddressBook &book);
@@ -25,8 +27,11 @@ namespace AddressBookLib {
         AddressBook& operator+= (Employee &employee);
         AddressBook& operator-= (Employee &employee);
 
-        Employee const& operator[] (const int index);
-        Employee const& operator[] (const std::string& index_name);
+        Employee const& operator[] (const int index) const;
+        Employee const& operator[] (const std::string& index_name) const;
+
+        Employee& operator[] (const int index);
+        Employee& operator[] (const std::string& index_name);
     };
 };
 

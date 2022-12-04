@@ -41,6 +41,24 @@ namespace AddressBookLib {
         return m_recordList.front();
     }
 
+    Employee const& AddressBook::findRecordById(uint32_t id) const {
+        for (const Employee &emp: m_recordList) {
+            if (emp.m_id == id)
+                return emp;
+        }
+        const std::string error = "Record with id = " + std::to_string(id) + " - not found!\n";
+        throw std::invalid_argument(error);
+    }
+
+    Employee const& AddressBook::findRecordByName(const std::string &name) const {
+        for (const Employee &emp: m_recordList) {
+            if (emp.m_name == name)
+                return emp;
+        }
+        const std::string error = "Record with name = \"" + name + "\" - not found!\n";
+        throw std::invalid_argument(error);
+    }
+
     void AddressBook::clear() {
         m_recordList.clear();
     }
@@ -70,11 +88,21 @@ namespace AddressBookLib {
         return *this;
     }
 
-    Employee const& AddressBook::operator[](const int index) {
+    Employee const& AddressBook::operator[](const int index) const {
         return findRecordById(index);
     }
 
-    Employee const& AddressBook::operator[](const std::string& index_name) {
+    Employee const& AddressBook::operator[](const std::string& index_name) const {
         return findRecordByName(index_name);
     }
+
+    Employee& AddressBook::operator[](const int index) {
+        return findRecordById(index);
+    }
+
+    Employee& AddressBook::operator[](const std::string &index_name) {
+        return findRecordByName(index_name);
+    }
+
+
 }
