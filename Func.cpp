@@ -1,6 +1,6 @@
 #include "Func.h"
 
-Employee::Employee(uint32_t idx, std::string n, uint16_t g)
+Employee::Employee(uint32_t idx, const std::string& n, uint16_t g)
 {
 	id = idx;
 	name = n;
@@ -25,12 +25,12 @@ bool Employee::operator!=(const Employee& another) const
 
 // Работа с классом AddressBook
 
-AddressBook::AddressBook(AddressBook& list)
+AddressBook::AddressBook(const AddressBook& list)
 {
 	this->List = list.List;
 }
 
-void AddressBook::addEmployee(const Employee human)
+void AddressBook::addEmployee(const Employee& human)
 {
 	node* newNode = new AddressBook::node;
 	newNode->person = human;
@@ -88,7 +88,7 @@ void AddressBook::deleteEmployee(const uint32_t idx)
 	}
 }
 
-void AddressBook::findEmployee(const std::string name_f)
+void AddressBook::findEmployee(const std::string& name_f) 
 {
 	node* tmpList = List;
 	bool Flag = false;
@@ -114,7 +114,7 @@ void AddressBook::findEmployee(const std::string name_f)
  	}	
 }
 
-void AddressBook::findEmployee(const uint32_t idx)
+void AddressBook::findEmployee(uint32_t idx)
 {
 	node* tmpList = List;
 	bool Flag = false;
@@ -140,45 +140,130 @@ void AddressBook::findEmployee(const uint32_t idx)
 	}
 }
 
-void AddressBook::deleteBook(node** List)
+void AddressBook::findEmployee(const std::string& name_f) const
 {
-	if ((*List)->next)
+	node* tmpList = List;
+	bool Flag = false;
+
+	while (tmpList)
 	{
-		deleteBook(&(*List)->next);
+		if (tmpList->person.name == name_f)
+		{
+			std::cout << "Employee " << name_f << " FOUND" << std::endl;
+			Flag = true;
+			tmpList = tmpList->next;
+		}
+		else
+		{
+			tmpList = tmpList->next;
+		}
 	}
-	List = nullptr;
+
+	if (!Flag)
+	{
+		std::cout << "Employee with the name: " << name_f << " " << " NOT FOUND" << std::endl;
+	}
+}
+
+void AddressBook::findEmployee(uint32_t idx) const
+{
+	node* tmpList = List;
+	bool Flag = false;
+
+	while (tmpList)
+	{
+		if (tmpList->person.id == idx)
+		{
+			std::cout << "Employee " << idx << " FOUND" << std::endl;
+			Flag = true;
+			tmpList = tmpList->next;
+		}
+		else
+		{
+			tmpList = tmpList->next;
+		}
+	}
+
+	if (!Flag)
+	{
+		std::cout << "Employee with the id: " << idx << " " << " NOT FOUND" << std::endl;
+	}
+}
+
+void AddressBook::deleteBook(node* list)
+{
+	if (list->next)
+	{
+		deleteBook(list->next);
+	}
+	delete list->next;
+	list->next = nullptr;
 }
 
 void AddressBook::deleteBook()
 {
-	List->next = nullptr;
-	List = nullptr;
+	if (List)
+	{
+		deleteBook(List);
+		delete List;
+		List = nullptr;
+	}
 }
 
-AddressBook AddressBook::operator+(const Employee person)
+AddressBook& AddressBook::operator+=(const Employee& person)
 {
 	this->addEmployee(person);
 	return *this;
 }
 
-AddressBook AddressBook::operator-(const uint32_t idx)
+AddressBook AddressBook::operator+(const Employee& person) const
+{
+	AddressBook tmp;
+	tmp = *this;
+	tmp += person;
+	return tmp;
+}
+
+AddressBook& AddressBook::operator-=(uint32_t idx)
 {
 	this->deleteEmployee(idx);
 	return *this;
 }
 
-AddressBook AddressBook::operator=(const AddressBook& list)
+AddressBook AddressBook::operator-(uint32_t idx) const
+{
+	AddressBook tmp;
+	tmp = *this;
+	tmp -= idx;
+	return tmp;
+}
+
+AddressBook& AddressBook::operator=(const AddressBook& list)
 {
 	if (this == &list)
 	{
 		return *this;
 	}
 
-	List = list.List;
-	return *this;
+	deleteBook();
+	if (list.List == nullptr)
+	{
+		List = nullptr;
+		return *this;
+	}
+	else
+	{
+		auto itr = list.List;
+		while (itr)
+		{
+			addEmployee(itr->person);
+			itr = itr->next;
+		}
+		return *this;
+	}
 }
 
-Employee AddressBook::operator[](const uint32_t idx)
+Employee& AddressBook::operator[](uint32_t idx)
 {
 	node* tmpList = this->List;
 	bool Flag = true;
@@ -207,7 +292,7 @@ Employee AddressBook::operator[](const uint32_t idx)
 	}
 }
 
-Employee AddressBook::operator[](const std::string name_f)
+Employee& AddressBook::operator[](const std::string& name_f)
 {
 	node* tmpList = this->List;
 	bool Flag = true;
@@ -227,6 +312,60 @@ Employee AddressBook::operator[](const std::string name_f)
 	{
 		std::cout << "Book don't have this name " << name_f << std::endl;
 		addEmployee(0, name_f, 0);
+	}
+	else
+	{
+		return tmpList->person;
+	}
+}
+
+const Employee& AddressBook::operator[](uint32_t idx) const
+{
+	node* tmpList = this->List;
+	bool Flag = true;
+
+	for (int i = 0; i < idx; i++)
+	{
+		if (tmpList)
+		{
+			tmpList = tmpList->next;
+		}
+		else
+		{
+			Flag = true;
+			break;
+		}
+	}
+
+	if (!Flag)
+	{
+		std::cout << "Book don't have this id " << idx << std::endl;
+	}
+	else
+	{
+		return tmpList->person;
+	}
+}
+
+const Employee& AddressBook::operator[](const std::string& name_f) const
+{
+	node* tmpList = this->List;
+	bool Flag = true;
+
+	while (tmpList)
+	{
+		if (tmpList->person.name == name_f)
+		{
+			Flag = true;
+			break;
+		}
+
+		tmpList = tmpList->next;
+	}
+
+	if (!Flag)
+	{
+		std::cout << "Book don't have this name " << name_f << std::endl;
 	}
 	else
 	{
