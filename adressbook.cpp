@@ -1,30 +1,30 @@
 #include "adressbook.h"
-adressbook::adressbook(uint32_t newid, const std::string &newname, uint16_t newgrade): id(newid), name(newname),grade(newgrade) {
+Friend::Friend(uint32_t newid, const std::string &newname, uint16_t newgrade): id(newid), name(newname),grade(newgrade) {
 }
-void adressbook::setid(uint32_t newid) {
+void Friend::setid(uint32_t newid) {
     id = newid;
 }
-void adressbook::setname(const std::string &newname) {
+void Friend::setname(const std::string &newname) {
     name = newname;
 }
-void adressbook::setgrade(uint16_t newgrade) {
+void Friend::setgrade(uint16_t newgrade) {
     grade = newgrade;
 }
-uint32_t adressbook::getid() const {
+uint32_t Friend::getid() const {
     return id;
 }
-std::string adressbook::getname() const {
+std::string Friend::getname() const {
     return name;
 }
-uint16_t adressbook::getgrade() const {
+uint16_t Friend::getgrade() const {
     return grade;
 }
-void adressbook::disp() const {
-    std::cout << "id:" << this->getid() << std::endl;
-    std::cout << "name:" << this->getname() << std::endl;
-    std::cout << "grade:" << this->getgrade() << std::endl;
+void Friend::disp() const {
+    std::cout << "id:" << this->id << std::endl;
+    std::cout << "name:" << this->name << std::endl;
+    std::cout << "grade:" << this->grade << std::endl;
 }
-bool operator==(const adressbook & person1, const adressbook& person2) {
+bool operator==(const Friend & person1, const Friend& person2) {
     if (person1.getid() == person2.getid() and person1.getname() == person2.getname() and person1.getgrade() == person2.getgrade()) {
         return true;
     }
@@ -32,8 +32,8 @@ bool operator==(const adressbook & person1, const adressbook& person2) {
         return false;
     }
 }
-bool operator!=(const adressbook& person1, const adressbook& person2) {
-    if (person1.getid() != person2.getid() or person1.getname() != person2.getname() or person1.getgrade() != person2.getgrade()) {
+bool operator!=(const Friend& person1, const Friend& person2) {
+    if (person1.getid()!= person2.getid() or person1.getname() != person2.getname() or person1.getgrade() != person2.getgrade()) {
         return true;
     }
     else {
@@ -58,20 +58,20 @@ void adresslist::addnewnode(node* node) {
         first = node;
     }
 }
-void adresslist::addperson(const adressbook& data) {
+void adresslist::addperson(const Friend& data) {
     node* node = new adresslist::node;
     node->data = data;
     addnewnode(node);
 }
 
 void adresslist::addperson(uint32_t uid,const std::string& name, uint16_t grade) {
-    addperson(adressbook(uid, name, grade));
+    addperson(Friend(uid, name, grade));
 }
 adresslist::node* adresslist::delperson(uint32_t delid) {
     node* head = first;
     node* prev = nullptr;
     while (head) {
-        if (head->data.getid() == delid) {
+        if (head->data.id == delid) {
             if (first == head) {
                 head = first->next;
                 first = head;
@@ -94,7 +94,7 @@ void adresslist::findperson(uint32_t findid) {
     node* head = first;
     int count = 0;
     while (head) {
-        if (head->data.getid() == findid) {
+        if (head->data.id == findid) {
             head->data.disp();
             count++;
             head = head->next;
@@ -111,7 +111,7 @@ void adresslist::findperson(const std::string& findname) {
     node* head = first;
     int count = 0;
     while (head) {
-        if (head->data.getname() == findname) {
+        if (head->data.name == findname) {
             head->data.disp();
             count++;
             head = head->next;
@@ -128,44 +128,7 @@ void adresslist::clearbook() {
     first->next = nullptr;
     first = nullptr;
 }
-void idbyindex(adresslist& list, int i) {
-    adresslist::node* head = list.first;
-    bool flag = true;
-    for (int j = 0; j < i; j++) {
-        if (head) {
-            head = head->next;
-        }
-        else {
-            flag = false;
-            break;
-        }
-    }
-    if (flag) {
-        std::cout << head->data.getid();
-    }
-    else {
-        std::cout << "Book don't have " << i << "st/nd/rd/th id" << std::endl;
-    }
-}
-void namebyindex(adresslist& list, int i) {
-    adresslist::node* head = list.first;
-    bool flag=true;
-    for (int j = 0; j < i; j++) {
-        if (head) {
-            head = head->next;
-        }
-        else {
-            flag=false;
-            break;
-        }
-    }
-    if (flag) {
-        std::cout << head->data.getname();
-    }
-    else {
-        std::cout << "Book don't have " << i << "st/nd/rd/th name" << std::endl;
-    }
-}
+
 adresslist& adresslist::operator=(const adresslist& list) {
     if (this == &list) {
         return *this;
@@ -173,15 +136,15 @@ adresslist& adresslist::operator=(const adresslist& list) {
     first = list.first;
     return *this;
 }
-adresslist& adresslist::operator+(adressbook& person) {
+adresslist& adresslist::operator+(Friend& person) {
     this->addperson(person);
     return *this;
 }
-adresslist& adresslist::operator-(adressbook& person) {
-    this->delperson(person.getid());
+adresslist& adresslist::operator-(Friend& person) {
+    this->delperson(person.id);
     return *this;
 }
-adressbook& adresslist::operator[](int i) {
+Friend& adresslist::operator[](int i) {
     bool flag = true;
     node* head = first;
     for (int j = 0; j < i; j++) {
@@ -205,6 +168,30 @@ adressbook& adresslist::operator[](int i) {
         return first->data; 
     }
 }
+const Friend& adresslist::operator[](int i)const {
+    bool flag = true;
+    node* head = first;
+    for (int j = 0; j < i; j++) {
+        if (head) {
+            if (j == 0) {
+                continue;
+            }
+            head = head->next;
+        }
+        else {
+            std::cout << "index out of range" << std::endl;
+            flag = false;
+            break;
+
+        }
+    }
+    if (flag = true) {
+        return head->data;
+    }
+    else {
+        return first->data;
+    }
+}
 std::ostream& operator<<(std::ostream& os,const adresslist& list) {
     adresslist::node* head = list.first;
     while (head) {
@@ -215,13 +202,13 @@ std::ostream& operator<<(std::ostream& os,const adresslist& list) {
     }
     return std::cout;
 }
-std::ostream& operator<<(std::ostream& os, const adressbook& person) {
+std::ostream& operator<<(std::ostream& os, const Friend& person) {
     std::cout << "id: " << person.getid() << std::endl;
     std::cout << "name: " << person.getname() << std::endl;
     std::cout << "grade: " << person.getgrade() << std::endl;
     return std::cout;
 }
-std::istream& operator>>(std::istream& is, adressbook& person) {
+std::istream& operator>>(std::istream& is, Friend& person) {
     uint32_t id;
     std::string name;
     uint16_t grade;
