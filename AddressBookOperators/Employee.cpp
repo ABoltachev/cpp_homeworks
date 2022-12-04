@@ -10,11 +10,11 @@ namespace AddressBookLibrary {
 		return *this;
 	}
 
-	bool operator == (Employee emp1, Employee emp2) {
+	const bool operator == (const Employee& emp1, const Employee& emp2) {
 		return ((emp1.id == emp2.id) && (emp1.name == emp2.name) && (emp1.grade == emp2.grade));
 	}
 
-	bool operator != (Employee emp1, Employee emp2) {
+	const bool operator != (const Employee& emp1, const Employee& emp2) {
 		return !((emp1.id == emp2.id) && (emp1.name == emp2.name) && (emp1.grade == emp2.grade));
 	}
 
