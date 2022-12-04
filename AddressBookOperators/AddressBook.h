@@ -26,10 +26,10 @@ namespace AddressBookLibrary {
 		AddressBook& operator -= (uint32_t id);
 
 		void FindByID(list** book, uint32_t id);
-		AddressBook& operator [] (uint32_t id);
+		const AddressBook& operator [] (uint32_t id);
 
-		void FindByName(list** book, std::string name);
-		AddressBook& operator [] (std::string name);
+		void FindByName(list** book, const std::string& name);
+		const AddressBook& operator [] (const std::string& name);
 
 		friend std::ostream& operator << (std::ostream& os, const AddressBook& ad);
 		list* DeleteList(list* ad);
