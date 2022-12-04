@@ -97,7 +97,7 @@ AddressBook::AddressBook(const AddressBook& book)
 
 }
 
-const AddressBook::Node* AddressBook::at(const uint32_t id) const
+const AddressBook::Node* AddressBook::at(uint32_t id) const
 {
     Node* cur_node = m_head;
     while((cur_node)&&(cur_node->m_data.m_id != id))
