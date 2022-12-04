@@ -22,7 +22,7 @@ namespace AddressBookModule {
 
         Employee &find_by_id(uint32_t id);
 
-        Employee &find_by_name(const std::string &name);
+        Employee & find_by_name(const std::string &name);
 
         void clear();
 
@@ -32,12 +32,15 @@ namespace AddressBookModule {
 
         void operator-(Employee &emp);
 
-        Employee &operator[](int index);
+        Employee &operator[](int id);
 
-        Employee &operator[](const std::string &index_name);
+        Employee &operator[](const std::string &name);
 
+        Employee const &operator[](int id) const;
 
-        AddressBook &operator=(const AddressBook &another);
+        Employee const &operator[](const std::string &name) const;
+
+        AddressBook &operator=(const AddressBook &old);
 
     };
 };

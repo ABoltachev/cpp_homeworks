@@ -9,9 +9,9 @@
 
 namespace AddressBookModule {
 
-    AddressBook &AddressBook::operator=(const AddressBook &another) {
+    AddressBook &AddressBook::operator=(const AddressBook &old) {
         this->clear();
-        for (auto& emp: another.address_book){
+        for (auto &emp: old.address_book) {
             this->add(emp);
         }
         return *this;
@@ -37,8 +37,9 @@ namespace AddressBookModule {
 
     Employee &AddressBook::find_by_name(const std::string &name) {
         for (auto &emp: address_book) {
-            if (emp.name == name)
+            if (emp.name == name) {
                 return emp;
+            }
         }
         address_book.push_front(Employee());
         return address_book.front();
@@ -63,11 +64,27 @@ namespace AddressBookModule {
         remove_by_id(emp.id);
     }
 
-    Employee &AddressBook::operator[](int index) {
-        return find_by_id(index);
+    Employee &AddressBook::operator[](int id) {
+        return find_by_id(id);
     }
 
-    Employee &AddressBook::operator[](const std::string &index_name) {
-        return find_by_name(index_name);
+    Employee &AddressBook::operator[](const std::string &name) {
+        return find_by_name(name);
+    }
+
+    Employee const &AddressBook::operator[](int id) const {
+        for (auto &emp: address_book) {
+            if (emp.id == id) {
+                return emp;
+            }
+        }
+    }
+
+    Employee const &AddressBook::operator[](const std::string &name) const {
+        for (auto &emp: address_book) {
+            if (emp.name == name) {
+                return emp;
+            }
+        }
     }
 }
