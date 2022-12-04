@@ -5,7 +5,6 @@
 #include <string>
 
 namespace AddressBookLibrary {
-	class AddressBook;
 
 	class Employee {
 	private:
@@ -16,15 +15,15 @@ namespace AddressBookLibrary {
 	public:
 		Employee() = default;
 
-		Employee(uint32_t new_id, const std::string new_name, uint16_t new_grade) : id(new_id), name(new_name), grade(new_grade)
+		Employee(uint32_t new_id, const std::string& new_name, uint16_t new_grade) : id(new_id), name(new_name), grade(new_grade)
 		{
 		}
 
 		Employee(const Employee& person) = default;
 		Employee& operator = (const Employee& another);
 
-		friend bool operator == (Employee emp1, Employee emp2);
-		friend bool operator != (Employee emp1, Employee emp2);
+		friend const bool operator == (const Employee& emp1, const Employee& emp2);
+		friend const bool operator != (const Employee& emp1, const Employee& emp2);
 
 		friend std::istream& operator >> (std::istream& in, Employee& emp);
 		friend std::ostream& operator << (std::ostream& os, const Employee& emp);
