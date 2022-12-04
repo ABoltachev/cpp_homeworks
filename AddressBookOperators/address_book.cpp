@@ -30,11 +30,18 @@ std::istream& operator>>(std::istream& in, Employee& emp)
 
 AddressBook::Node::Node(const Node& node)
 {
+    if (this == &node) {
+        return;
+    }
     m_data = node.m_data;
 }
 
 AddressBook::Node& AddressBook::Node::operator=(const Node& other)
 {
+    if (this == &other) {
+        return;
+    }
+
     m_data = other.m_data;
     return *this;
 }
@@ -121,7 +128,21 @@ Employee& AddressBook::find(const size_t id)
 
 Employee& AddressBook::find(const size_t id) const
 {
-    return find(id);
+    if (!m_list) {
+        Employee emp = Employee();
+        return emp;
+    }
+
+    Node* cur = m_list;
+    while (cur && cur->m_data.m_id != id) {
+        cur = cur->next;
+    }
+    if (!cur) {
+        Employee emp = Employee();
+        return emp;
+    }
+
+    return cur->m_data;
 }
 
 Employee& AddressBook::find(const std::string& name)
@@ -146,7 +167,22 @@ Employee& AddressBook::find(const std::string& name)
 
 Employee& AddressBook::find(const std::string& name) const
 {
-    return find(name);
+    if (!m_list) {
+        Employee emp = Employee();
+        return emp;
+    }
+
+    Node* cur = m_list;
+    for (size_t i = 0; i < m_size && cur->m_data.m_name != name; i++) {
+        cur = cur->next;
+    }
+
+    if (!cur) {
+        Employee emp = Employee();
+        return emp;
+    }
+
+    return cur->m_data;
 }
 
 void AddressBook::clear()
@@ -210,8 +246,7 @@ const Employee& AddressBook::operator[](const std::string& name) const
     return find(name);
 }
 
-std::ostream&
-operator<<(std::ostream& out, const AddressBook& address_book)
+std::ostream& operator<<(std::ostream& out, const AddressBook& address_book)
 {
     AddressBook::Node* cur = address_book.m_list;
 
