@@ -3,18 +3,31 @@
 #include <list>
 #include "person.h"
 
-using namespace std;
+
 
 class PhoneBook {
-    list<Person> people;
+    std::list<Person> people;
 public:
-    PhoneBook();
-    ~PhoneBook();
+    
+    PhoneBook()=default;
+    void clear();
 
-    bool addPerson(string, uint32_t, uint16_t);
+    void addPerson(const Person &Ppl);
     void DelPerson(uint32_t);
 
-    bool searchById(uint32_t);
-    bool searchByName(string);
+    Person &searchById(uint32_t);
+    Person &searchByName(const std::string);
     void listAllPeople();
+
+    void operator+(const Person &person);
+
+    void operator-(const Person &person);
+
+    PhoneBook &operator=(const PhoneBook& other);
+    
+
+    friend std::ostream& operator<<(std::ostream& os, PhoneBook& person);
 };
+
+
+

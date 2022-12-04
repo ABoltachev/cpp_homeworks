@@ -4,58 +4,63 @@
 #include "Person.h"
 #include "Book.h"
 
-using namespace std;
 
-PhoneBook::PhoneBook() {
+
+
+
+void PhoneBook::addPerson(const Person &Ppl) {
+    people.push_back(Ppl);
+}
+void PhoneBook::clear() {
+    people.clear();
 }
 
-PhoneBook::~PhoneBook() {
-    people.erase(people.begin(),people.end());
-}
-
-bool PhoneBook::addPerson(string namee, uint32_t idd, uint16_t gradee) {
-    people.push_back(Person(namee, idd,gradee));
-    return true;
-}
-
-
-void PhoneBook::DelPerson(uint32_t idd) {
-    list<Person>::iterator it;
-    for (it = people.begin(); it != people.end(); it++) {
-        if (((Person)(*it)).getId() == idd) {
-            people.erase(it);
-            break;
-        }
-    }
+void PhoneBook::DelPerson(uint32_t id) {
+    people.remove(searchById(id));
 }
 
 void PhoneBook::listAllPeople() {
-    list<Person>::iterator it;
+    std::list<Person>::iterator it;
     for (it = people.begin(); it != people.end(); it++) {
-        cout << ((Person)(*it)).getName() << " -- " << ((Person)(*it)).getId() << endl;
+        std::cout << ((Person)(*it)).getName() << " -- " << ((Person)(*it)).getId() << std::endl;
     }
 }
 
-bool PhoneBook::searchByName(string name) {
-    list<Person>::iterator it;
-    for (it = people.begin(); it != people.end(); it++) {
-        if (((Person)(*it)).getName() == name) {
-            cout<<((Person)(*it)).getName()<<" "<< ((Person)(*it)).getId() << " " << ((Person)(*it)).getGrade()<<endl;
-            return 1;
+Person &PhoneBook::searchByName(const std::string name) {
+    for (auto &Ppl : people) {
+        if (Ppl.name == name) {
+            return Ppl;
         }
     }
-    return 0;
+    people.push_back(Person());
+    return people.back();
 }
 
 
-bool PhoneBook::searchById(uint32_t id) {
-    list<Person> l;
-    list<Person>::iterator it;
-    for (it = people.begin(); it != people.end(); it++) {
-        if (((Person)(*it)).getId() == id) {
-            cout << ((Person)(*it)).getName() << " " << ((Person)(*it)).getId() << " " << ((Person)(*it)).getGrade() << endl;
-            return 1;
+Person &PhoneBook::searchById(uint32_t id) {
+    std::list<Person>::iterator it;
+    for (auto& Ppl : people) {
+        if (Ppl.id == id) {
+            return Ppl;
         }
     }
-    return 0;
+    people.push_back(Person());
+    return people.back();
 }
+
+void PhoneBook::operator+(const Person &person) {
+    addPerson(person);
+}
+
+void PhoneBook::operator-(const Person &person) {
+    DelPerson(person.id);
+}
+std::ostream& operator<<(std::ostream& os, PhoneBook& person) {
+    for (auto& Ppl : person.people) {
+        std::cout << "Id: " << Ppl.getId() << std::endl;
+        std::cout << "Name: " << Ppl.getName() << std::endl;
+        std::cout << "Grade: " << Ppl.getGrade() << std::endl;
+    }
+    return std::cout;
+}
+
