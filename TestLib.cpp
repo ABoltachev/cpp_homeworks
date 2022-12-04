@@ -90,19 +90,27 @@ namespace TestLib {
             }
             bool flaq = false;
             Node* cur_node = m_head;
+            Node* temp = nullptr;
             while (cur_node->next) {
                 if (cur_node->m_data.m_id == id) {
                     flaq = true;
                     break;
                 }
+                temp = cur_node;
                 cur_node = cur_node->next;
             }
             if (flaq) {
-                Node* temp = cur_node->next;
-                cur_node->next = temp->next;
-                cur_node = temp;
+                if (temp)
+                {
+                    temp->next = cur_node->next;
+                    cur_node->next = nullptr;
+                }
+                else
+                {
+                    m_head = m_head->next;
+                }
+
                 m_size--;
-                delete temp;
             }
         }
         return;
@@ -121,7 +129,7 @@ namespace TestLib {
         }
     }
 
-    Employee& AddressBook::find(uint32_t id) const {
+    Employee& AddressBook::find(uint32_t id) {
         Node* cur_node = m_head;
         while (cur_node && (cur_node->m_data.m_id != id)) {
             cur_node = cur_node->next;
@@ -129,23 +137,22 @@ namespace TestLib {
         if (!cur_node) {
             Employee new_emp = Employee();
             new_emp.m_id = id;
+            addEmployee(new_emp);
             return new_emp;
         }
         return cur_node->m_data;
     }
 
-    Employee& AddressBook::find(const std::string& name) const {
+    Employee& AddressBook::find(const std::string& name) {
 
         Node* cur_node = m_head;
-        while (cur_node->next) {
-            if (cur_node->m_data.m_name == name) {
-                break;
-            }
+        while (cur_node && (cur_node->m_data.m_name != name)) {
             cur_node = cur_node->next;
         }
         if (!cur_node) {
             Employee new_emp = Employee();
             new_emp.m_name = name;
+            addEmployee(new_emp);
             return new_emp;
         }
         return cur_node->m_data;
@@ -153,7 +160,11 @@ namespace TestLib {
 
     const Employee& AddressBook::operator[](uint32_t id) const
     {
-        return find(id);
+        Node* cur_node = m_head;
+        while (cur_node && (cur_node->m_data.m_id != id)) {
+            cur_node = cur_node->next;
+        }
+        return cur_node->m_data;
     }
 
     Employee& AddressBook::operator[](uint32_t id)
@@ -163,7 +174,11 @@ namespace TestLib {
 
     const Employee& AddressBook::operator[](const std::string& name) const
     {
-        return find(name);
+        Node* cur_node = m_head;
+        while (cur_node && (cur_node->m_data.m_name != name)) {
+            cur_node = cur_node->next;
+        }
+        return cur_node->m_data;
     }
 
     Employee& AddressBook::operator[](const std::string& name)

@@ -49,8 +49,8 @@ namespace TestLib {
 
         void clearAddressBook();
 
-        Employee& find(uint32_t id) const;
-        Employee& find(const std::string& name) const;
+        Employee& find(uint32_t id);
+        Employee& find(const std::string& name);
 
         const Employee& operator[] (uint32_t id) const;
         Employee& operator[] (uint32_t id);
