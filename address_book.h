@@ -48,6 +48,8 @@ public:
     void operator -= (uint32_t id);
     const Employee& operator [](uint32_t id) const;
     const Employee& operator [](std::string& name) const;
+    Employee& operator [](std::string& name);
+    Employee& operator [](uint32_t id);
     friend std::ostream& operator<<( std::ostream&, const AddressBook&);
     void print_employees() const;
     ~AddressBook();
