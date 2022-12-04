@@ -151,12 +151,22 @@ const Employee& AddressBook::operator[](std::string& name) const
 }
  Employee& operator [](std::string& name)
 {
-    assert(at(name));
+    if(!at(name))
+    {
+       Employee new_employee = Employee();
+       new_employee.m_name = name;
+       add_employee(new_employee);
+    }
     return at(name)->m_data;
 }
  Employee& operator [](uint32_t id)
  {
-    assert(at(id));
+    if(!at(id))
+    {
+       Employee new_employee = Employee();
+       new_employee.m_id = id;
+       add_employee(new_employee);
+    }
     return at(id)->m_data;
  }
 AddressBook::~AddressBook()
