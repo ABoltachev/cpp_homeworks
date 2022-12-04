@@ -149,6 +149,16 @@ const Employee& AddressBook::operator[](std::string& name) const
     assert(at(name));
     return at(name)->m_data;
 }
+ Employee& operator [](std::string& name)
+{
+    assert(at(name));
+    return at(name)->m_data;
+}
+ Employee& operator [](uint32_t id)
+ {
+    assert(at(id));
+    return at(id)->m_data;
+ }
 AddressBook::~AddressBook()
 {
     clear();
