@@ -42,7 +42,7 @@ public:
     void add_employee(uint32_t id, std::string& name, uint16_t grade);
     void delete_employee(uint32_t id);
     void clear();
-    const Node* at (const uint32_t id) const;
+    const Node* at (uint32_t id) const;
     const Node* at(const std::string& name) const;
     void operator += (const Employee& new_employee);
     void operator -= (uint32_t id);
