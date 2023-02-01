@@ -17,6 +17,9 @@ class Array
    public:
     Array() = default;
 
+    Array(const Array& arr);
+    Array(Array&& arr);
+
     Array(std::initializer_list<T> list);
 
     T& operator[](size_t index);
