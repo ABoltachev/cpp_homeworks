@@ -2,6 +2,6 @@
 
 #include <iostream>
 
-namespace algs
+namespace lib
 {
 }

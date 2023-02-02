@@ -3,7 +3,7 @@
 #include <iostream>
 #include <stdexcept>
 
-namespace algs
+namespace lib
 {
 
 template <typename T, size_t _size>
@@ -12,15 +12,18 @@ class Array
    private:
     T m_array[_size];
     size_t m_size = _size;
+
+    void checkSize(size_t size) const;
     void checkIndex(size_t index) const;
+    void fillArray(const T& data);
 
    public:
-    Array() = default;
+    Array();
+
+    Array(std::initializer_list<T> list);
 
     Array(const Array& arr);
     Array(Array&& arr);
-
-    Array(std::initializer_list<T> list);
 
     T& operator[](size_t index);
     const T& operator[](size_t index) const;
@@ -29,7 +32,7 @@ class Array
     bool empty() const;
 };
 
-}  // namespace algs
+}  // namespace lib
 
 #include "array.tpp"
 
