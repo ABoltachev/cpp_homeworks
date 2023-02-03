@@ -206,7 +206,7 @@ algo::set<type>::~set()
 }
 
 template <typename type>
-void algo::set<type>::emplace(const type& value)
+void algo::set<type>::emplace(const type& value) noexcept
 {
 	if (!__size__)
 	{

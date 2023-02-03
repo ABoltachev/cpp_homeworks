@@ -140,7 +140,7 @@ void algo::vector<type>::push_back(const type& value)
 }
 
 template <typename type>
-void algo::vector<type>::emplace_back(const type& value)
+void algo::vector<type>::emplace_back(const type& value) noexcept
 {
 	resize(size() + 1);
 	data[size() - 1] = std::move(value);

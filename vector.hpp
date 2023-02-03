@@ -21,7 +21,7 @@ namespace algo
 		type& operator[](const size_t& index);
 		const type& operator[](const size_t& index) const;
 		void push_back(const type& value);
-		void emplace_back(const type& value);
+		void emplace_back(const type& value) noexcept;
 		void resize(const size_t& __size__, const type& default_value = type());
 		void clear();
 		~vector();

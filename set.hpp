@@ -23,7 +23,7 @@ namespace algo
 		set(const std::initializer_list<type>& init_list);
 		size_t size() const;
 		bool empty() const;
-		void emplace(const type& value);
+		void emplace(const type& value) noexcept;
 		const type& top() const;
 		const type& bottom() const;
 		bool find(const type& value) const;
