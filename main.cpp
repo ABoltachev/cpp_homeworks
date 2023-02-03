@@ -1,5 +1,8 @@
 #include <iostream>
-#include "AdressBook.hpp"
+#include "array.hpp"
+#include "vector.hpp"
+#include "set.hpp"
+#include "algorithms.hpp"
 using namespace std;
 
 int main() {
