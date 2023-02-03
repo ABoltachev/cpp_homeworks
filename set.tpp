@@ -206,8 +206,43 @@ algo::set<type>::~set()
 }
 
 template <typename type>
-template <class... Args>
-void algo::set<type>::emplace(Args&&... args)
+void algo::set<type>::emplace(const type& value)
 {
-	insert(type(args...));
+	if (!__size__)
+	{
+		head = new algo::set<type>::node_set;
+		head->value = std::move(value);
+	}
+	else
+	{
+		auto iter = head;
+		while (true)
+		{
+			if (value < iter->value)
+			{
+				if (!iter->left)
+				{
+					iter->left = new node_set;
+					iter->left->value = std::move(value);
+					break;
+				}
+				else
+					iter = iter->left;
+			}
+			else if (value == iter->value)
+				return;
+			else
+			{
+				if (!iter->right)
+				{
+					iter->right = new node_set;
+					iter->right->value = std::move(value);
+					break;
+				}
+				else
+					iter = iter->right;
+			}
+		}
+	}
+	++__size__;
 }

@@ -5,7 +5,7 @@
 namespace algo
 {
 	template <typename type>
-	void swap(type& a, type& b);
+	void swap(type& a, type& b) noexcept;
 
 //	MAX<->MIN operator<
 

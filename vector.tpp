@@ -140,11 +140,10 @@ void algo::vector<type>::push_back(const type& value)
 }
 
 template <typename type>
-template <class... Args>
-void algo::vector<type>::emplace_back(Args&&... args)
+void algo::vector<type>::emplace_back(const type& value)
 {
 	resize(size() + 1);
-	data[size() - 1] = type(args...);
+	data[size() - 1] = std::move(value);
 }
 
 template <typename type>

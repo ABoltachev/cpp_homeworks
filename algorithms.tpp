@@ -1,11 +1,11 @@
 #pragma once
 
 template <typename type>
-void algo::swap(type& a, type& b) 
+void algo::swap(type& a, type& b) noexcept
 {
-	type temp = a;
-	a = b;
-	b = temp;
+	type temp = std::move(a);
+	a = std::move(b);
+	b = std::move(temp);
 }
 
 //	MAX<->MIN operator<
