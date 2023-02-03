@@ -74,7 +74,7 @@ const algo::vector<type>& algo::vector<type>::operator=(const vector<type>& _vec
 {
 	if (this == &_vector)
 	{
-		return;
+		return *this;
 	}
 	delete[] data;
 	this->__size__ = _vector.__size__;
@@ -82,6 +82,7 @@ const algo::vector<type>& algo::vector<type>::operator=(const vector<type>& _vec
 	data = new type[__capacity__];
 	for (size_t i = 0; i < size(); ++i)
 		data[i] = _vector[i];
+	return *this;
 }
 
 template <typename type>
@@ -140,7 +141,7 @@ void algo::vector<type>::push_back(const type& value)
 }
 
 template <typename type>
-void algo::vector<type>::emplace_back(const type& value) noexcept
+void algo::vector<type>::emplace_back(const type& value)
 {
 	resize(size() + 1);
 	data[size() - 1] = std::move(value);

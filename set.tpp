@@ -188,15 +188,18 @@ void algo::set<type>::clear()
 template <typename type>
 const algo::set<type>& algo::set<type>::operator=(const set<type>& _set)
 {
-	if (&_set == this || !_set.head)
+	if (!_set.head)
 	{
 		head = nullptr;
 		__size__ = 0;
-		return;
+		return *this;
 	}
+	if (_set == this)
+		return *this;
 	clear();
 	head = new algo::set<type>::node_set(_set.head);
 	__size__ = _set.__size__;
+	return *this;
 }
 
 template <typename type>
@@ -206,7 +209,7 @@ algo::set<type>::~set()
 }
 
 template <typename type>
-void algo::set<type>::emplace(const type& value) noexcept
+void algo::set<type>::emplace(const type& value)
 {
 	if (!__size__)
 	{
