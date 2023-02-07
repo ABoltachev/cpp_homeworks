@@ -56,6 +56,28 @@ Array<T, _size>::Array(Array<T, _size>&& arr)
         m_array[i] = arr.m_array[i];
     }
 }
+template <typename T, size_t _size>
+Array<T, _size>& Array<T, _size>::operator=(const Array<T, _size>& array)
+{
+    if (&array == this)
+        return *this;
+
+    for (int i = 0; i < m_size; ++i)
+        m_array[i] = array.m_array[i];
+
+    return *this;
+}
+
+template <typename T, size_t _size>
+Array<T, _size>& Array<T, _size>::operator=(Array<T, _size>&& array)
+{
+    if (&array == this)
+        return *this;
+    for (int i = 0; i < m_size; ++i)
+        m_array[i] = array.m_array[i];
+
+    return *this;
+}
 
 template <typename T, size_t _size>
 void Array<T, _size>::checkIndex(size_t index) const

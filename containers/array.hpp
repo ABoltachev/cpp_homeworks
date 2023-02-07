@@ -25,6 +25,9 @@ class Array
     Array(const Array& arr);
     Array(Array&& arr);
 
+    Array& operator=(const Array& array);
+    Array& operator=(Array&& array);
+
     T& operator[](size_t index);
     const T& operator[](size_t index) const;
 
