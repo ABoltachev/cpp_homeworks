@@ -177,19 +177,18 @@ void Vector<T>::clear()
 }
 
 template <typename T>
-void Vector<T>::resize(size_t size)
+void Vector<T>::resize(const size_t size, const T value)
 {
-    if (size < m_size) {
-        m_size = size;
-    }
-
-    m_max_size = size;
-    T* new_array = new T[m_max_size];
-    for (int i = 0; i < m_size; i++) {
-        new_array[i] = m_array[i];
-    }
+    checkSize(size);
     delete[] m_array;
-    m_array = new_array;
+
+    m_size = size;
+    m_max_size = size * 2;
+    m_array = new T[m_max_size];
+
+    for (int i = 0; i < size; i++) {
+        m_array[i] = value;
+    }
 }
 
 }  // namespace lib

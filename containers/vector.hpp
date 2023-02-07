@@ -38,7 +38,7 @@ class Vector
     bool empty() const;
 
     void clear();
-    void resize(size_t size);
+    void resize(const size_t size, const T value);
 };
 
 }  // namespace lib
