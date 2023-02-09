@@ -144,7 +144,7 @@ template <typename type>
 void algo::vector<type>::emplace_back(type&& value) noexcept
 {
 	resize(size() + 1);
-	data[size() - 1] = std::move(value);
+	data[size() - 1] = value;
 }
 
 template <typename type>
