@@ -209,12 +209,12 @@ algo::set<type>::~set()
 }
 
 template <typename type>
-void algo::set<type>::emplace(const type& value) noexcept
+void algo::set<type>::emplace(type&& value) noexcept
 {
 	if (!__size__)
 	{
 		head = new algo::set<type>::node_set;
-		head->value = std::move(value);
+		head->value = value;
 	}
 	else
 	{
@@ -226,7 +226,7 @@ void algo::set<type>::emplace(const type& value) noexcept
 				if (!iter->left)
 				{
 					iter->left = new node_set;
-					iter->left->value = std::move(value);
+					iter->left->value = value;
 					break;
 				}
 				else
@@ -239,7 +239,7 @@ void algo::set<type>::emplace(const type& value) noexcept
 				if (!iter->right)
 				{
 					iter->right = new node_set;
-					iter->right->value = std::move(value);
+					iter->right->value = value;
 					break;
 				}
 				else
@@ -248,4 +248,13 @@ void algo::set<type>::emplace(const type& value) noexcept
 		}
 	}
 	++__size__;
+}
+
+template <typename type>
+algo::set<type>::set(set<type>&& _set)
+	: head(_set.head)
+	, __size__(_set.__size__)
+{
+	_set.head = nullptr;
+	_set.__size__ = 0;
 }

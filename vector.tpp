@@ -141,7 +141,7 @@ void algo::vector<type>::push_back(const type& value)
 }
 
 template <typename type>
-void algo::vector<type>::emplace_back(const type& value) noexcept
+void algo::vector<type>::emplace_back(type&& value) noexcept
 {
 	resize(size() + 1);
 	data[size() - 1] = std::move(value);
@@ -160,4 +160,15 @@ template <typename type>
 algo::vector<type>::~vector()
 {
 	delete[] data;
+}
+
+template <typename type>
+algo::vector<type>::vector(vector<type>&& _vector) noexcept
+	: data(_vector.data)
+	, __size__(_vector.__size__)
+	, __capacity__(_vector.__capacity__)
+{
+	_vector.data = new type;
+	_vector.__size__ = 0;
+	_vector.__capacity__ = 1;
 }
