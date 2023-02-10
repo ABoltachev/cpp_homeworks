@@ -1,8 +1,8 @@
 #include <iostream>
-#include "stllib/array/array.hpp"
-#include "stllib/vector/vector.hpp"
-#include "stllib/set/set.hpp"
-#include "stllib/algorithms/algorithms.hpp"
+#include "array.hpp"
+#include "vector.hpp"
+#include "set.hpp"
+#include "algorithms.hpp"
 using namespace std;
 
 int main() {
