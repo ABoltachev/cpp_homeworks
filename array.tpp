@@ -20,7 +20,7 @@ algo::array<type, _size_>::array(const std::initializer_list<type>& init_list)
 template <typename type, size_t _size_>
 algo::array<type, _size_>::array(const array<type, _size_>& _array)
 {
-	std::memcpy(data, _array.data, _size_ * sizeof(type));
+	memcpy(data, _array.data, _size_ * sizeof(type));
 }
 
 template <typename type, size_t _size_>
@@ -52,7 +52,7 @@ const type& algo::array<type, _size_>::operator[](const size_t& index) const
 template <typename type, size_t _size_>
 const algo::array<type, _size_>& algo::array<type, _size_>::operator=(const array<type, _size_>& _array)
 {
-	std::memcpy(data, _array.data, _size_ * sizeof(type));
+	memcpy(data, _array.data, _size_ * sizeof(type));
 	return *this;
 }
 
