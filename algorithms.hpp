@@ -130,7 +130,7 @@ namespace algo
 			int64_t& operator*();
 			const int64_t& operator*() const;
 			
-			void isEnd();
+			void isEnd() const;
 		};
 	public:
 		range_iterator begin() const;
