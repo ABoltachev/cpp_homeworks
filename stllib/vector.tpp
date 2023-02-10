@@ -1,6 +1,6 @@
 #include "vector.hpp"
 
-namespace lib
+namespace stl
 {
 
 template <typename T>
@@ -191,4 +191,4 @@ void Vector<T>::resize(const size_t size, const T value)
     }
 }
 
-}  // namespace lib
+}  // namespace stl

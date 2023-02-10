@@ -3,7 +3,7 @@
 #include <iostream>
 #include <stdexcept>
 
-namespace lib
+namespace stl
 {
 template <typename T>
 class Vector

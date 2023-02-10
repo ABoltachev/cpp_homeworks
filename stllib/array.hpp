@@ -3,7 +3,7 @@
 #include <iostream>
 #include <stdexcept>
 
-namespace lib
+namespace stl
 {
 
 template <typename T, size_t _size>
@@ -35,7 +35,7 @@ class Array
     bool empty() const;
 };
 
-}  // namespace lib
+}  // namespace stl
 
 #include "array.tpp"
 

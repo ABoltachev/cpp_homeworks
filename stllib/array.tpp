@@ -3,7 +3,7 @@
 
 #include "array.hpp"
 
-namespace lib
+namespace stl
 {
 template <typename T, size_t _size>
 void Array<T, _size>::checkSize(size_t size) const
@@ -113,6 +113,6 @@ bool Array<T, _size>::empty() const
     return m_size == 0;
 }
 
-}  // namespace lib
+}  // namespace stl
 
 #endif
