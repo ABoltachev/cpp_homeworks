@@ -488,11 +488,13 @@ const bool algo::range_buffer::range_iterator::operator!=(const range_iterator& 
 
 int64_t& algo::range_buffer::range_iterator::operator*() 
 {
+	isEnd();
 	return index;
 }
 
 const int64_t& algo::range_buffer::range_iterator::operator*() const 
 {
+	isEnd();
 	return index;
 }
 
@@ -504,4 +506,11 @@ algo::range_buffer::range_iterator algo::range_buffer::begin() const
 algo::range_buffer::range_iterator algo::range_buffer::end() const 
 {
 	return algo::range_buffer::range_iterator(INT64_MAX, this);
+}
+
+
+void algo::range_buffer::range_iterator::isEnd() const
+{
+	if (index == INT64_MAX)
+		throw std::out_of_range("out of range");
 }

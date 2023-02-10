@@ -11,7 +11,7 @@ template <typename type, size_t _size_>
 algo::array<type, _size_>::array(const std::initializer_list<type>& init_list)
 {
 	size_t i = 0;
-	for (const auto& elem: init_list) 
+	for (const auto& elem : init_list)
 	{
 		data[i++] = elem;
 	}
@@ -20,8 +20,7 @@ algo::array<type, _size_>::array(const std::initializer_list<type>& init_list)
 template <typename type, size_t _size_>
 algo::array<type, _size_>::array(const array<type, _size_>& _array)
 {
-	for (size_t i = 0; i < _size_; ++i)
-		data[i] = _array[i];
+	std::memcpy(data, _array.data, _size_ * sizeof(type));
 }
 
 template <typename type, size_t _size_>
@@ -53,8 +52,7 @@ const type& algo::array<type, _size_>::operator[](const size_t& index) const
 template <typename type, size_t _size_>
 const algo::array<type, _size_>& algo::array<type, _size_>::operator=(const array<type, _size_>& _array)
 {
-	for (size_t i = 0; i < _size_; ++i)
-		data[i] = _array[i];
+	std::memcpy(data, _array.data, _size_ * sizeof(type));
 	return *this;
 }
 
