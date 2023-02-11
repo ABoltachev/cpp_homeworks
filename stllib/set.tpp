@@ -211,43 +211,7 @@ algo::set<type>::~set()
 template <typename type>
 void algo::set<type>::emplace(type&& value) noexcept
 {
-	if (!__size__)
-	{
-		head = new algo::set<type>::node_set;
-		head->value = value;
-	}
-	else
-	{
-		auto iter = head;
-		while (true)
-		{
-			if (value < iter->value)
-			{
-				if (!iter->left)
-				{
-					iter->left = new node_set;
-					iter->left->value = value;
-					break;
-				}
-				else
-					iter = iter->left;
-			}
-			else if (value == iter->value)
-				return;
-			else
-			{
-				if (!iter->right)
-				{
-					iter->right = new node_set;
-					iter->right->value = value;
-					break;
-				}
-				else
-					iter = iter->right;
-			}
-		}
-	}
-	++__size__;
+	insert(value);
 }
 
 template <typename type>

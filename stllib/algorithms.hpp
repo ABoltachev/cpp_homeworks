@@ -8,7 +8,7 @@ namespace algo
 	template <typename type>
 	void swap(type& a, type& b) noexcept;
 
-//	MAX<->MIN operator<
+	//	MAX<->MIN operator<
 
 	template<typename type>
 	const type& min(const vector<type>& _vector);
@@ -22,7 +22,7 @@ namespace algo
 	template<typename type, size_t _size_>
 	const type& max(const array<type, _size_>& _array);
 
-//	MAX<->MIN cmp
+	//	MAX<->MIN cmp
 
 	template<typename type>
 	const type& min(const vector<type>& _vector, bool (*cmp)(type, type));
@@ -36,15 +36,15 @@ namespace algo
 	template<typename type, size_t _size_>
 	const type& max(const array<type, _size_>& _array, bool (*cmp)(type, type));
 
-// FIND
+	// FIND
 	template <typename type>
 	type& find(vector<type>& _vector, const type& value);
 
 	template <typename type, size_t _size_>
 	type& find(array<type, _size_>& _array, const type& value);
 
-// sorts
-	// vector operator< 
+	// sorts
+		// vector operator< 
 	template <typename type>
 	int sort_checker(vector<type>& _vector, const long long int& i, long long int& j);
 
@@ -104,7 +104,7 @@ namespace algo
 	range_buffer range(const int64_t& stop);
 	range_buffer range(const int64_t& start, const int64_t& stop, const int64_t& step = 1);
 
-	class range_buffer 
+	class range_buffer
 	{
 	private:
 		int64_t __start__;
@@ -129,7 +129,7 @@ namespace algo
 
 			int64_t& operator*();
 			const int64_t& operator*() const;
-			
+
 			void isEnd() const;
 		};
 	public:

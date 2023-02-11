@@ -3,7 +3,7 @@
 namespace algo
 {
 	template <typename type>
-	class set 
+	class set
 	{
 	private:
 		struct node_set
