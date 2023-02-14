@@ -10,3 +10,61 @@
     присваивание (копирование и перемещением)
     конструкторы (конструктор без аргументов; копирования; перемещения; конструктор с std::inizialized_list)
 */
+
+#ifndef SET_HPP
+#define SET_HPP
+
+#include <iostream>
+#include <stdexcept>
+
+namespace stl
+{
+
+template <typename T>
+class Set
+{
+   private:
+    template <typename V>
+    struct Node {
+        V data;
+        Node* left = nullptr;
+        Node* right = nullptr;
+    };
+    Node<T>* m_root;
+    size_t m_size;
+
+    void implCopy(Node<T>*& root, Node<T>* copyNode);
+
+    T& implTop(Node<T>* root) const;
+    bool implFind(Node<T>* root, const T& value) const;
+
+    void implInsert(Node<T>*& root, const T& value);
+    void implEmplace(Node<T>*& root, T&& value);
+    
+    void implClear(Node<T>*& root);
+
+   public:
+    Set();
+    Set(std::initializer_list<T> list);
+    Set(const Set& set);
+    Set(Set&& set);
+
+    Set& operator=(const Set& set);
+    Set& operator=(Set&& set);
+
+    size_t size() const;
+    bool empty() const;
+
+    T& top() const;
+    bool find(const T& value) const;
+
+    void insert(const T& value);
+    void emplace(T&& value);
+
+    void clear();
+};
+
+}  // namespace stl
+
+#include "set.tpp"
+#endif
