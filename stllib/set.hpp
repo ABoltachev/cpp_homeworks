@@ -1,12 +1,51 @@
-/*
-* set и методы для него (для реализации использовать простое бинарное дерево, соответственно использовать можно только с данными, которые имеют оператор <):
-    size (возвращает размер)
-    empty (возвращает true если пустой)
-    top (возвращает большее значение)
-    find (поиск элемента, true - нашли, false - нет)
-    insert (вставка (копирование))
-    emplace (вставка (перемещение))
-    clear (очистка
-    присваивание (копирование и перемещением)
-    конструкторы (конструктор без аргументов; копирования; перемещения; конструктор с std::inizialized_list)
-*/
+#ifndef HW2_C___SET_HPP
+#define HW2_C___SET_HPP
+
+#include <stdexcept>
+
+
+template<typename T>
+class set {
+private:
+    struct Node{
+        T value;
+        Node* right;
+        Node* left;
+
+        Node(const T& value);
+        Node(T&& value);
+
+    };
+    size_t m_size;
+    Node* head;
+
+public:
+    set();
+    set(const set& other);
+    set(set&& other);
+    set(std::initializer_list<T>& initial_list);
+
+    size_t size() const;
+    bool empty() const;
+
+    const T& getMax() const;
+    const T& getMin() const;
+
+    bool find(const T& elem) const;
+
+    void insert(const T& elem);
+    void emplace(T&& elem);
+
+    set& operator=(const set<T> &arr);
+    set& operator=(set<T> &&arr);
+
+    void clear();
+    void clearTree(Node* node);
+
+    ~set();
+
+};
+
+#include "set.tpp"
+
+#endif
