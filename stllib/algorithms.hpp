@@ -1,12 +1,30 @@
-/*
-На вход каждого алгоритма подается контейнер, который вы реализовали
- * sort (простая сортировка, либо пузырьком, либо вставками)
- * max; min (поиск максимума и минимума соответственно)
- * find (поиск элемента, возвращает ссылку на элемент, либо бросает исключение runtime_error, если не нашло элемент)
+//
+// Created by home on 14.02.23.
+//
 
-Доп задание (доп бал):
-    Реализовать функцию range (аналог функции из Python) по аналогии с функцией enumerate с семинара
-    Должно быть 2 перегрузки
-     * range(int stop)
-     * range(int start, int stop, int step=1)
-*/
+#ifndef UNTITLED15_ALGORITHMS_HPP
+#define UNTITLED15_ALGORITHMS_HPP
+#pragma once
+#include "set.hpp"
+#include "set.tpp"
+
+template<class T,size_t len>
+void sort(Array<T, len>& container);
+template<class T>
+auto min(T container);
+template<class data_type>
+data_type min(Set<data_type> set);
+template<class T>
+auto max(T container);
+template<class data_type>
+data_type max(Set<data_type> set);
+template<class data_type, size_t len>
+data_type& find (Array<data_type, len> container, data_type elem);
+template<class data_type>
+data_type& find (Vector <data_type> container, data_type elem);
+template<class data_type>
+data_type& find(Set<data_type> set, data_type elem);
+
+
+#include "algorithms.tpp"
+#endif //UNTITLED15_ALGORITHMS_HPP
