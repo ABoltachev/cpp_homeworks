@@ -21,8 +21,8 @@ template <typename T>
 container::vector<T>::vector(vector <T> &&vec) noexcept {
     vec_ = vec.vec_;
     size_ = vec.size_;
-    capacity_ = vec._capacity;
-    vec._capacity = 0;
+    capacity_ = vec.capacity_;
+    vec.capacity_ = 0;
 }
 
 template <typename T>
@@ -96,8 +96,8 @@ container::vector<T>& container::vector<T>::operator=(vector <T> &&vec) noexcept
     clear();
     vec_ = vec.vec_;
     size_ = vec.size_;
-    capacity_ = vec._capacity;
-    vec._capacity = 0;
+    capacity_ = vec.capacity_;
+    vec.capacity_ = 0;
     return *this;
 }
 

@@ -192,7 +192,7 @@ container::set<T>& container::set<T>::operator=(set<T>&& object) {
     size_ = object.size_;
     root_ = object.root_;
     object.root = nullptr;
-    object._size = 0;
+    object.size_ = 0;
     return *this;
 }
 
