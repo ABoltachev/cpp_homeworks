@@ -67,5 +67,20 @@ int main()
     for(int i(0); i < vec2.size(); ++i)
         std::cout << vec2[i] << '\n';
 
+    //  Range
+    std::cout << "+++++++++++++Range++++++++++" << '\n';
+    hw::range<10> r1;
+    for(auto el : r1)
+        std::cout << el << ' ';
+    std::cout << '\n';
+
+    hw::range<21,10,2> r2;
+    for(auto el : r2)
+        std::cout << el << ' ';
+    std::cout << '\n';
+    for(int i(0); i < r2.size(); ++i)
+        std::cout << r2[i] << ' ';
+    std::cout << '\n';
+
     return 0;
 }
