@@ -17,5 +17,5 @@ public:
     T& operator[](int index);
 };
 
-#include "../array.tpp"
+#include "array.tpp"
 #endif //UNTITLED15_ARRAY_HPP

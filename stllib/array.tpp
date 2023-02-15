@@ -6,7 +6,7 @@ bool Array<T, len>::empty() {
 }
 template<typename T, size_t len>
 Array<T, len>& Array<T, len>::operator=(const Array<T, len>& other) {
-    for (int index = 0; index < _size_; index++)
+    for (int index = 0; index < m_size; index++)
     {
         arr[index] = other.arr[index];
     }
@@ -15,7 +15,7 @@ Array<T, len>& Array<T, len>::operator=(const Array<T, len>& other) {
 template<typename T, size_t len>
 T& Array<T,len>::operator[](int index)
 {
-    if (index >= _size_)
+    if (index >= m_size)
         throw std::out_of_range("List out of range");
     return arr[index];
 }
@@ -31,5 +31,5 @@ Array<T, len>::Array(const std::initializer_list<T>& l)
 template<typename T, size_t len>
 int Array<T, len>::size()
 {
-    return _size_;
+    return m_size;
 }

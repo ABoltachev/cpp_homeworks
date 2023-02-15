@@ -10,7 +10,7 @@ class Vector
 {
     T* v = nullptr;
     size_t m_size;
-    size_t _capacity_;
+    size_t m_capacity;
     void grow(size_t new_capacity);
 public:
     size_t size();
