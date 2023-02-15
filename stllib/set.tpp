@@ -9,6 +9,20 @@ template<typename T>
 set<T>::Node::Node(T &&value) : value(std::move(value)), left(nullptr), right(nullptr) {}
 
 template<typename T>
+<<<<<<< Updated upstream
+=======
+typename set<T>::Node* set<T>::findHelper(Node* node, const T& value) const {
+    if ((node == nullptr) || (node->value == value)) {
+        return node;
+    }
+    if (value > node->value) {
+        return findHelper(node->right, value);
+    }
+    return findHelper(node->left, value);
+}
+
+template<typename T>
+>>>>>>> Stashed changes
 set<T>::set() {
     head = nullptr;
     m_size = 0;
@@ -49,7 +63,11 @@ bool set<T>::empty() const {
 }
 
 template<typename T>
+<<<<<<< Updated upstream
 const T& set<T>::getMax() const {
+=======
+const T& set<T>::top() const {
+>>>>>>> Stashed changes
     if (head != nullptr) {
         Node* current = head;
         while (current->right != nullptr) {
@@ -90,6 +108,14 @@ bool set<T>::find(const T &elem) const {
 }
 
 template<typename T>
+<<<<<<< Updated upstream
+=======
+typename set<T>::Node *set<T>::nFind(const T &value) const {
+    return findHelper(head, value);
+}
+
+template<typename T>
+>>>>>>> Stashed changes
 void set<T>::insert(const T &elem) {
     Node* node = new Node(elem);
     if (head == nullptr) {

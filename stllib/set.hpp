@@ -19,6 +19,11 @@ private:
     size_t m_size;
     Node* head;
 
+<<<<<<< Updated upstream
+=======
+    Node* findHelper(Node* node, const T& value) const;
+
+>>>>>>> Stashed changes
 public:
     set();
     set(const set& other);
@@ -28,12 +33,23 @@ public:
     size_t size() const;
     bool empty() const;
 
+<<<<<<< Updated upstream
     const T& getMax() const;
     const T& getMin() const;
 
     bool find(const T& elem) const;
 
     void insert(const T& elem);
+=======
+    const T& top() const;
+    const T& getMin() const;
+
+    bool find(const T& value) const;
+
+    Node* nFind(const T& value) const;
+
+    void insert(const T& value);
+>>>>>>> Stashed changes
     void emplace(T&& elem);
 
     set& operator=(const set<T> &arr);
