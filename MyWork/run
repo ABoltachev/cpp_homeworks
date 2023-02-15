@@ -1,0 +1,7 @@
+#!/bin/bash
+
+clear
+
+g++ source.cpp -o result.o
+
+./result.o
