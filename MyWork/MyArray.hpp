@@ -48,6 +48,6 @@ namespace MyStdLib {
 
 }
 
-#include "MyArray.cpp"
+#include "MyArray.tpp"
 
 #endif

@@ -46,9 +46,9 @@ namespace MyStdLib {
 
         void resize(size_t size, const T& val);
 
-        void emplace_back(const T&& val); // ???
+        void emplace_back(const T&& val); 
 
-        T& operator[](size_t ind); // !!!!!!!!!!!!!
+        T& operator[](size_t ind);
 
         MyVector<T>& operator=(const MyVector<T>& vector);
 
@@ -60,6 +60,6 @@ namespace MyStdLib {
     };
 }
 
-#include "MyVector.cpp"
+#include "MyVector.tpp"
 
 #endif

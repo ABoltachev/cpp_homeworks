@@ -46,6 +46,6 @@ namespace MyStdLib {
     T& find(MySet<T>& set);
 }
 
-#include "algorithm.cpp"
+#include "algorithm.tpp"
 
 #endif

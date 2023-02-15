@@ -66,6 +66,6 @@ namespace MyStdLib {
 
 }
 
-#include "MySet.cpp"
+#include "MySet.tpp"
 
 #endif 
