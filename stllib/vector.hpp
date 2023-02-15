@@ -19,6 +19,7 @@ namespace algo
 		size_t size() const;
 		bool empty() const;
 		const vector<type>& operator=(const vector<type>& _vector);
+		const vector<type>& operator=(vector<type>&& _vector);
 		type& operator[](const size_t& index);
 		const type& operator[](const size_t& index) const;
 		void push_back(const type& value);

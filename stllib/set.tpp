@@ -222,3 +222,21 @@ algo::set<type>::set(set<type>&& _set)
 	_set.head = nullptr;
 	_set.__size__ = 0;
 }
+
+
+template <typename type>
+const algo::set<type>& algo::set<type>::operator=(set<type>&& _set) 
+{
+	if (!_set.head)
+	{
+		head = nullptr;
+		__size__ = 0;
+		return *this;
+	}
+	if (_set == this)
+		return *this;
+	clear();
+	head = new algo::set<type>::node_set(_set.head);
+	__size__ = _set.__size__;
+	return *this;
+}

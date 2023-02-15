@@ -172,3 +172,19 @@ algo::vector<type>::vector(vector<type>&& _vector) noexcept
 	_vector.__size__ = 0;
 	_vector.__capacity__ = 1;
 }
+
+template <typename type>
+const algo::vector<type>& algo::vector<type>::operator=(vector<type>&& _vector) 
+{
+	if (this == &_vector)
+	{
+		return *this;
+	}
+	delete[] data;
+	this->__size__ = _vector.__size__;
+	this->__capacity__ = _vector.__capacity__;
+	data = new type[__capacity__];
+	for (size_t i = 0; i < size(); ++i)
+		data[i] = _vector[i];
+	return *this;
+}

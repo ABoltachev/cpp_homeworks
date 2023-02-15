@@ -31,6 +31,7 @@ namespace algo
 		void insert(const type& value);
 		void clear();
 		const set<type>& operator=(const set<type>& _set);
+		const set<type>& operator=(set<type>&& _set);
 		~set();
 	private:
 		void check_empty() const;
