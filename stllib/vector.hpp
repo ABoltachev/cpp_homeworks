@@ -14,7 +14,6 @@ namespace stl {
 
         void checkIndex(size_t index) const;
 
-        void checkSize(size_t size) const;
 
     public:
         Vector();
