@@ -36,6 +36,7 @@ class Set
     void implCopy(Node*& root, Node* copyNode);
 
     bool implFind(Node* root, const T& value) const;
+    T& implFindValue(Node* root, const T& value) const;
 
     void implInsert(Node*& root, const T& value);
     void implEmplace(Node*& root, T&& value);
@@ -57,6 +58,7 @@ class Set
     T& top() const;
     T& min() const;
     bool find(const T& value) const;
+    T& findValue(const T& value) const;
 
     void insert(const T& value);
     void emplace(T&& value);

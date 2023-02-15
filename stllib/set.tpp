@@ -130,6 +130,29 @@ bool Set<T>::find(const T& value) const
 }
 
 template <typename T>
+T& Set<T>::implFindValue(Node* root, const T& value) const
+{
+    if (!root) {
+        throw std::runtime_error("Value in set not found");
+    }
+
+    if (root->data == value) {
+        return root->data;
+    }
+
+    if (root->data < value)
+        return implFindValue(root->left, value);
+    else
+        return implFindValue(root->right, value);
+}
+
+template <typename T>
+T& Set<T>::findValue(const T& value) const
+{
+    return implFindValue(m_root, value);
+}
+
+template <typename T>
 void Set<T>::implInsert(Node*& root, const T& value)
 {
     if (!root) {

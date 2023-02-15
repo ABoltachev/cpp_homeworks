@@ -7,6 +7,6 @@ set(CMAKE_CXX_STANDARD_REQUIRED True)
 
 add_executable(main main.cpp)
 
-add_library(containers_lib containers/array.cpp containers/vector.cpp)
+add_library(stllib_lib stllib/array.cpp stllib/vector.cpp stllib/set.hpp stllib/algorithms.hpp)
 
-target_link_libraries(main containers_lib)
+target_link_libraries(main stllib_lib)
