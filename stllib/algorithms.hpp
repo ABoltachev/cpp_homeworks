@@ -10,3 +10,44 @@
      * range(int stop)
      * range(int start, int stop, int step=1)
 */
+
+#include <iterator>
+
+namespace hw
+{
+    template<typename Iterator>
+    void sort(Iterator begin, Iterator end)
+    {
+        for(auto it = begin; it != end-1; ++it)
+        {
+            auto min = it;
+            for(auto jt = it+1; jt != end; ++jt)
+            {
+                if(*jt < *min)
+                    min = jt;
+            }
+            auto temp = *it;
+            *it = *min;
+            *min = temp;
+        }
+    }
+
+    template<typename Iterator>
+    Iterator max(Iterator begin, Iterator end)
+    {
+        auto res = begin;
+        for(auto it = begin; it != end; ++it)
+            if(*it > *res)
+                res = it;
+        
+        return res;
+    }
+
+    template<typename Iterator, typename Key>
+    Iterator find(Iterator begin, Iterator end, const Key& key)
+    {
+        auto it = begin;
+        for(; it != end and *it != key; ++it);
+        return it;
+    }
+}

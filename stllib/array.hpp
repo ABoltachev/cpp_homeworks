@@ -31,6 +31,8 @@ namespace hw
             iterator operator++(int);
             bool operator==(const iterator& other);
             bool operator!=(const iterator& other);
+            iterator operator+(long i) const;
+            iterator operator-(long i) const;
             T& operator*();
 
             friend array<T,Size+1>;
@@ -62,6 +64,24 @@ namespace hw
         ++this->ptr;
 
         return temp;
+    }
+
+    template<typename T, std::size_t Size>
+    typename array<T,Size>::iterator array<T,Size>::iterator::operator+(long i) const
+    {
+        auto res = *this;
+        res.ptr += i;
+
+        return res;
+    }
+
+    template<typename T, std::size_t Size>
+    typename array<T,Size>::iterator array<T,Size>::iterator::operator-(long i) const
+    {
+        auto res = *this;
+        res.ptr -= i;
+
+        return res;
     }
 
     template<typename T, std::size_t Size>

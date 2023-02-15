@@ -1,6 +1,7 @@
 #include "stllib/set.hpp"
 #include "stllib/array.hpp"
 #include "stllib/vector.hpp"
+#include "stllib/algorithms.hpp"
 #include <iostream>
 
 int main()
@@ -30,7 +31,10 @@ int main()
     
     // Array
     std::cout << "+++++++Array++++++++" << '\n';
-    hw::array<long,10> a1 = {1,2,3,4,4,5,6,7,8,9};
+    hw::array<long,10> a1 = {1,2,3,4,4,90,5,6,7,8};
+    std::cout << "Max: " << *hw::max(a1.begin(),a1.end()) << '\n';
+    std::cout << "Is 40 in list?: " << (hw::find(a1.begin(),a1.end(),40) == a1.end() ? "No" : "Yes") << '\n';
+    std::cout << "Is 6 in list?: " << (hw::find(a1.begin(),a1.end(),6) == a1.end() ? "No" : "Yes") << '\n';
     hw::array<long,0> a2;
     for(auto el : a1)
         std::cout << el << '\n';
@@ -38,6 +42,11 @@ int main()
     a1[3] = 100;
     for(auto el : a1)
         std::cout << el << '\n';
+    hw::sort(a1.begin(),a1.end());
+    std::cout << "Sorted:\n";
+    for(auto el : a1)
+        std::cout << el << '\n';
+
 
     // Vector
     std::cout << "+++++++Vector++++++" << '\n';
