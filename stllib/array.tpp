@@ -39,3 +39,11 @@ template<typename T, size_t aSize>
 bool Array<T, aSize>::empty(){
     return (aSize == 0);
 }
+
+template<typename T, size_t aSize>
+T& Array<T, aSize>::operator[](int index){
+    if ((index < 0) or (index >= size())) {
+        throw std::out_of_range("Index out of range");
+    }
+    return array[index];
+}
