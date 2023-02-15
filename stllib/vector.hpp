@@ -29,10 +29,17 @@ namespace hw
         vector(std::size_t size);
         vector(std::size_t size, T init_value);
         vector(const vector<T>&);
+        vector(vector<T>&&);
         vector(std::initializer_list<T> list);
 
         std::size_t size() const;
         bool empty() const;
+
+        void resize(std::size_t new_size);
+        void resize(std::size_t new_size, T init_value);
+        void clear();
+        void push_back(const T& value);
+        void emplace_back(T&& value);
 
         void operator=(const vector<T>&);
         T& operator[](std::size_t);
@@ -86,6 +93,16 @@ namespace hw
     }
 
     template<typename T>
+    vector<T>::vector(vector<T>&& other)
+    {
+        *this = other;
+        this->buffer = new T[this->capacity];
+        for(std::size_t i(0); i < this->__size; ++i)
+            this->buffer[i] = other.buffer[i];
+        other.buffer = nullptr;
+    }
+
+    template<typename T>
     std::size_t vector<T>::size() const { return this->__size; }
 
     template<typename T>
@@ -98,9 +115,69 @@ namespace hw
     void vector<T>::operator=(const vector<T>& other)
     {
         this->buffer = new T[other.capacity];
-        this->__size = other.size;
+        this->__size = other.__size;
         this->capacity = other.capacity;
-        for(std::size_t i(0); i < this->size; ++i)
+        for(std::size_t i(0); i < this->__size; ++i)
             this->buffer[i] = other.buffer[i];
+    }
+
+    template<typename T>
+    void vector<T>::resize(std::size_t new_size)
+    {
+        T* new_buff = new T[new_size];
+        for(std::size_t i(0); i < this->__size; ++i)
+            new_buff[i] = this->buffer;
+        this->buffer = new_buff;
+        this->__size = new_size;
+        this->capacity = new_size;
+    }
+
+    template<typename T>
+    void vector<T>::resize(std::size_t new_size, T init_value)
+    {
+        T* new_buff = new T[new_size];
+        for(std::size_t i(0); i < this->__size; ++i)
+            new_buff[i] = this->buffer[i];
+        for(std::size_t i(this->__size); i < new_size; ++i)
+            new_buff[i] = init_value;
+        this->buffer = new_buff;
+        this->__size = new_size;
+        this->capacity = new_size;
+    }
+
+    template<typename T>
+    void vector<T>::clear()
+    {
+        this->__size = 0;
+    }
+
+    template<typename T>
+    void vector<T>::push_back(const T& value)
+    {
+        if(this->__size >= this->capacity)
+        {
+            this->capacity *= 2;
+            T* new_buff = new T[this->capacity];
+            for(std::size_t i(0); i < this->__size; ++i)
+                new_buff[i] = this->buffer[i];
+            this->buffer = new_buff;
+        }
+        this->buffer[this->__size] = value;
+        ++this->__size;
+    }
+
+    template<typename T>
+    void vector<T>::emplace_back(T&& value)
+    {
+        if(this->__size >= this->capacity)
+        {
+            this->capacity *= 2;
+            T* new_buff = new T[this->capacity];
+            for(std::size_t i(0); i < this->__size; ++i)
+                new_buff[i] = this->buffer[i];
+            this->buffer = new_buff;
+        }
+        this->buffer[this->__size] = value;
+        ++this->__size;
     }
 }

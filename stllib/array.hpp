@@ -17,9 +17,24 @@ namespace hw
     class array
     {
     private:
-        T buffer[Size];
+        T buffer[Size+1];
     
     public:
+        class iterator : public std::iterator<std::random_access_iterator_tag,T>
+        {
+        private:
+            T* ptr;
+        public:
+            iterator() = delete;
+            explicit iterator(T* ptr);
+            iterator& operator++();
+            iterator operator++(int);
+            bool operator==(const iterator& other);
+            bool operator!=(const iterator& other);
+            T& operator*();
+
+            friend array<T,Size+1>;
+        };
         array() = default;
         array(const array<T,Size>&);
         array(std::initializer_list<T> list);
@@ -29,7 +44,34 @@ namespace hw
 
         void operator=(const array<T,Size>&);
         T& operator[](std::size_t);
+
+        iterator begin();
+        iterator end();
     };
+
+    template<typename T, std::size_t Size>
+    array<T,Size>::iterator::iterator(T* ptr) : ptr(ptr) {}
+
+    template<typename T, std::size_t Size>
+    typename array<T,Size>::iterator& array<T,Size>::iterator::operator++() { ++this->ptr; return *this; }
+
+    template<typename T, std::size_t Size>
+    typename array<T,Size>::iterator array<T,Size>::iterator::operator++(int)
+    {
+        auto temp = *this;
+        ++this->ptr;
+
+        return temp;
+    }
+
+    template<typename T, std::size_t Size>
+    bool array<T,Size>::iterator::operator==(const iterator& other) { return this->ptr == other.ptr; }
+
+    template<typename T, std::size_t Size>
+    bool array<T,Size>::iterator::operator!=(const iterator& other) { return this->ptr != other.ptr; }
+
+    template<typename T, std::size_t Size>
+    T& array<T,Size>::iterator::operator*() { return *ptr; }
 
     template<typename T, std::size_t Size>
     array<T,Size>::array(const array<T,Size>& other)
@@ -62,5 +104,17 @@ namespace hw
     {
         for(std::size_t i(0); i < Size; ++i)
             this->buffer[i] = other.buffer[i];
+    }
+
+    template<typename T, std::size_t Size>
+    typename array<T,Size>::iterator array<T,Size>::begin()
+    {
+        return iterator(this->buffer);
+    }
+
+    template<typename T, std::size_t Size>
+    typename array<T,Size>::iterator array<T,Size>::end()
+    {
+        return iterator(this->buffer+Size);
     }
 }
