@@ -24,9 +24,6 @@ class Vector{
     size_t vCapacity = 0;
     void shape(size_t newCapacity);
 
-    // typename Set<T>::Node* copy(typename Set<T>::Node* pNode);
-    // void deleteNode(typename Set<T>::Node* pNode);
-
     public: 
 
     Vector() = default;

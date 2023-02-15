@@ -87,6 +87,17 @@ T Set<T, Compare>::top()
 }
 
 template<class T, class Compare>
+T Set<T, Compare>::bottom()
+{
+    Node* check = head;
+    while(head->left)
+    {
+        check = head->left;
+    }
+    return head->value;
+}
+
+template<class T, class Compare>
 void Set<T, Compare>::deleteNode(typename Set<T>::Node* pNode)
 {
     if (pNode != nullptr) {
@@ -117,6 +128,21 @@ bool Set<T, Compare>::find(T element)
             return true;
     }
     return false;
+}
+
+template<class T, class Compare>
+typename Set<T>::Node* Set<T, Compare>::findNode(T element)
+{
+    Node* check = head;
+    while (check) {
+        if (Compare(element, check->value))
+            check = check->left;
+        else if (Compare(check->value, element))
+            check = check->right;
+        else
+            return check;
+    }
+    return nullptr;
 }
 
 template<class T, class Compare>

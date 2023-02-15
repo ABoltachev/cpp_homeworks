@@ -43,10 +43,12 @@ class Set{
 
     size_t size();
     T top();
+    T bottom();
     bool empty();
     void clear();    
     
-    bool find(T element);   
+    bool find(T element); 
+    typename Set<T>::Node* findNode(T element);  
     
     void insert(const T& element);
     void emplace(T&& element);

@@ -29,7 +29,7 @@ void Vector<T>::shape(size_t newCapacity){
 template<typename T>
 Vector<T>::Vector(size_t size, T value): vector(new T[size]), vSize(size), vCapacity(size)
 {
-    for (int i = 0, i < vSize, i++){
+    for (int i = 0; i < vSize; i++){
         vector[i] = value;
     }
 }
@@ -37,7 +37,7 @@ Vector<T>::Vector(size_t size, T value): vector(new T[size]), vSize(size), vCapa
 template<typename T>
 Vector<T>::Vector(const Vector<T>& other): vector(new T[size]), vSize(other.vSize), vCapacity(other.vCapacity)
 {
-    for (int i = 0, i < vSize, i++){
+    for (int i = 0; i < vSize; i++){
         vector[i] = other.vector[i];
     }
 }
@@ -80,7 +80,7 @@ template<typename T>
 Vector<T>& Vector<T>::operator= (Vector<T>&& other)
 {
     if (this != &other) {
-        v = other.vector;
+        vector = other.vector;
         vSize = other.vSize;
         vCapacity = other.vCapacity;
 
@@ -143,7 +143,7 @@ void Vector<T>::push_back(const T& element) {
         shape(vCapacity*2);
 
     vector[vSize++] = element;
-    
+
 }
 
 template<typename T>
