@@ -5,12 +5,12 @@
 
 namespace VectorMethods
 {
-	template <typename T>
+	template <typename vT>
 
 	class Vector
 	{
 	private:
-		T* vector;
+		vT* vector;
 		size_t v_size;
 		size_t max_size;
 
@@ -18,22 +18,22 @@ namespace VectorMethods
 
 	public:
 		Vector();
-		Vector(const size_t& v_size = 0, const T& value = T());
-		Vector(const std::initializer_list<T>& initial_list);
-		Vector(const Vector<T>& another_vector);
+		Vector(const size_t& v_size = 0, const vT& value = vT());
+		Vector(const std::initializer_list<vT>& initial_list);
+		Vector(const Vector<vT>& another_vector);
 
-		const Vector<T>& operator = (const Vector<T>& another_vector);
+		const Vector<vT>& operator = (const Vector<vT>& another_vector);
 
-		T& operator [] (const size_t& index);
-		const T& operator [] (const size_t& index) const;
+		vT& operator [] (const size_t& index);
+		const vT& operator [] (const size_t& index) const;
 
 		size_t size() const;
 		bool empty() const;
 
-		void resize(const size_t& new_size, const T& value = T());
+		void resize(const size_t& new_size, const vT& value = vT());
 
-		void push_back(const T& value);
-		void emplace_back(T&& value);
+		void push_back(const vT& value);
+		void emplace_back(vT&& value);
 
 		void clear();
 		~Vector();
