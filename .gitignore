@@ -1,5 +1,4 @@
 *build*
-CMakeLists.txt
 main.cpp
 .vscode
 .idea
