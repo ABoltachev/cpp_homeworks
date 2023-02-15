@@ -1,12 +1,33 @@
-/*
-На вход каждого алгоритма подается контейнер, который вы реализовали
- * sort (простая сортировка, либо пузырьком, либо вставками)
- * max; min (поиск максимума и минимума соответственно)
- * find (поиск элемента, возвращает ссылку на элемент, либо бросает исключение runtime_error, если не нашло элемент)
+#ifndef ALGORITHMS_HPP
+#define ALGORITHMS_HPP
 
-Доп задание (доп бал):
-    Реализовать функцию range (аналог функции из Python) по аналогии с функцией enumerate с семинара
-    Должно быть 2 перегрузки
-     * range(int stop)
-     * range(int start, int stop, int step=1)
-*/
+#include"array.hpp"
+#include"vector.hpp"
+
+template<typename Data, size_t size>
+void sort(Array<Data, size>& arr);
+
+template<typename Data, size_t size>
+Data max(Array<Data, size>& arr);
+
+template<typename Data, size_t size>
+Data min(Array<Data, size>& arr);
+
+template<typename Data, size_t size>
+Data& find(Array<Data, size>& arr, const Data& sym);
+
+template<typename Data>
+void sort(Vector<Data>& vec);
+
+template<typename Data>
+Data max(Vector<Data>& vec);
+
+template<typename Data>
+Data min(Vector<Data>& avec);
+
+template<typename Data>
+Data& find(Vector<Data>& vec, const Data& sym);
+
+#include "algorithms.tpp"
+
+#endif
