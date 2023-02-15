@@ -1,12 +1,45 @@
-/*
-* vector и методы для него (самая простая реализация с использованием динамического массива, если размера не хватает, чтобы добавить эелемент в конец, просто расширяется в два раза):
-    size (возвращает размер)
-    empty (возвращает true если пустой)
-    взятие по индексу (operator[])
-    push_back (вставка в конец (копирование))
-    emplace_back (вставка в конце (перемещение))
-    clear (очистка)
-    resize (изменение размера, вторым аргументом идет аргумент по умолчанию, которым будут заполняться все места)
-    присваивание (копирование и перемещением)
-    конструкторы (конструктор без аргументов; первый аргумент размер, второй по умолчанию со значением, которым будут заполняться все места; копирования; перемещения; конструктор с std::inizialized_list)
-*/
+#ifndef VECTOR_HPP
+#define VECTOR_HPP
+
+#include <iostream>
+
+namespace VectorMethods
+{
+	template <typename T>
+
+	class Vector
+	{
+	private:
+		T* vector;
+		size_t v_size;
+		size_t max_size;
+
+		void CheckIndex(const size_t& index) const;
+
+	public:
+		Vector();
+		Vector(const size_t& v_size = 0, const T& value = T());
+		Vector(const std::initializer_list<T>& initial_list);
+		Vector(const Vector<T>& another_vector);
+
+		const Vector<T>& operator = (const Vector<T>& another_vector);
+
+		T& operator [] (const size_t& index);
+		const T& operator [] (const size_t& index) const;
+
+		size_t size() const;
+		bool empty() const;
+
+		void resize(const size_t& new_size, const T& value = T());
+
+		void push_back(const T& value);
+		void emplace_back(T&& value);
+
+		void clear();
+		~Vector();
+	};
+}
+
+#include "Vector.tpp"
+
+#endif
