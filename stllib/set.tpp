@@ -17,12 +17,12 @@ Set<T>::Set(std::initializer_list<T> list) : Set()
 }
 
 template <typename T>
-void Set<T>::implCopy(Node<T>*& root, Node<T>* copyNode)
+void Set<T>::implCopy(Node*& root, Node* copyNode)
 {
     if (copyNode == nullptr)
         return;
 
-    root = new Node<T>{copyNode->data};
+    root = new Node{copyNode->data};
     implCopy(root->left, copyNode->left);
     implCopy(root->right, copyNode->right);
 }
@@ -83,21 +83,33 @@ bool Set<T>::empty() const
 }
 
 template <typename T>
-T& Set<T>::implTop(Node<T>* root) const
-{
-    if (!root->right)
-        return root->data;
-    return implTop(root->right);
-}
-
-template <typename T>
 T& Set<T>::top() const
 {
-    implTop(m_root);
+    if (empty()) {
+        throw std::runtime_error("Set is empty!");
+    }
+
+    Node* cur = m_root;
+    while (cur->right)
+        cur = cur->right;
+    return cur->data;
 }
 
 template <typename T>
-bool Set<T>::implFind(Node<T>* root, const T& value) const
+T& Set<T>::min() const
+{
+    if (empty()) {
+        throw std::runtime_error("Set is empty!");
+    }
+
+    Node* cur = m_root;
+    while (cur->left)
+        cur = cur->left;
+    return cur->left;
+}
+
+template <typename T>
+bool Set<T>::implFind(Node* root, const T& value) const
 {
     if (!root)
         return false;
@@ -118,10 +130,10 @@ bool Set<T>::find(const T& value) const
 }
 
 template <typename T>
-void Set<T>::implInsert(Node<T>*& root, const T& value)
+void Set<T>::implInsert(Node*& root, const T& value)
 {
     if (!root) {
-        root = new Node<T>{value};
+        root = new Node{value};
         return;
     }
 
@@ -142,10 +154,10 @@ void Set<T>::insert(const T& value)
 }
 
 template <typename T>
-void Set<T>::implEmplace(Node<T>*& root, T&& value)
+void Set<T>::implEmplace(Node*& root, T&& value)
 {
     if (!root) {
-        root = new Node<T>{value};
+        root = new Node{value};
         return;
     }
 
@@ -166,7 +178,7 @@ void Set<T>::emplace(T&& value)
 }
 
 template <typename T>
-void Set<T>::implClear(Node<T>*& root)
+void Set<T>::implClear(Node*& root)
 {
     if (root == nullptr) {
         return;
@@ -185,5 +197,5 @@ void Set<T>::clear()
     m_size = 0;
     m_root = nullptr;
 }
-// void clear() {}
+
 }  // namespace stl

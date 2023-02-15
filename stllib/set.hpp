@@ -24,24 +24,23 @@ template <typename T>
 class Set
 {
    private:
-    template <typename V>
+    // template <typename V>
     struct Node {
-        V data;
+        T data;
         Node* left = nullptr;
         Node* right = nullptr;
     };
-    Node<T>* m_root;
+    Node* m_root;
     size_t m_size;
 
-    void implCopy(Node<T>*& root, Node<T>* copyNode);
+    void implCopy(Node*& root, Node* copyNode);
 
-    T& implTop(Node<T>* root) const;
-    bool implFind(Node<T>* root, const T& value) const;
+    bool implFind(Node* root, const T& value) const;
 
-    void implInsert(Node<T>*& root, const T& value);
-    void implEmplace(Node<T>*& root, T&& value);
-    
-    void implClear(Node<T>*& root);
+    void implInsert(Node*& root, const T& value);
+    void implEmplace(Node*& root, T&& value);
+
+    void implClear(Node*& root);
 
    public:
     Set();
@@ -56,6 +55,7 @@ class Set
     bool empty() const;
 
     T& top() const;
+    T& min() const;
     bool find(const T& value) const;
 
     void insert(const T& value);
