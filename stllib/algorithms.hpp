@@ -1,12 +1,40 @@
-/*
-На вход каждого алгоритма подается контейнер, который вы реализовали
- * sort (простая сортировка, либо пузырьком, либо вставками)
- * max; min (поиск максимума и минимума соответственно)
- * find (поиск элемента, возвращает ссылку на элемент, либо бросает исключение runtime_error, если не нашло элемент)
+#include <stdexcept>
+#include "array.hpp"
+#include "vector.hpp"
+#include "set.hpp"
 
-Доп задание (доп бал):
-    Реализовать функцию range (аналог функции из Python) по аналогии с функцией enumerate с семинара
-    Должно быть 2 перегрузки
-     * range(int stop)
-     * range(int start, int stop, int step=1)
-*/
+//array
+template <typename T, std::size_t N>
+void sort(Array<T, N>& arr);
+
+template <typename T, std::size_t N>
+T max(Array<T, N>& arr);
+
+template <typename T, std::size_t N>
+T min(Array<T, N>& arr);
+
+template <typename T, std::size_t N>
+T& find(Array<T, N>& arr, const T& val);
+
+//vector
+template<typename T>
+void sort(Vector<T>& vec);
+
+template<typename T>
+T max(Vector<T>& vec);
+
+template<typename T>
+T min(Vector<T>& vec);
+
+template<typename T>
+T& find(Vector<T>& vec, const T& val);
+
+//set
+template<typename T>
+T min(Set<T>& arr);
+
+template<typename T>
+T max(Set<T>& arr);
+
+template<typename T>
+T& find(Set<T>& arr, const T& value);
