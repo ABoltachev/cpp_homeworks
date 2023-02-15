@@ -4,24 +4,24 @@
 template<class T>
 size_t Vector<T>::size()
 {
-    return _size_;
+    return m_size;
 }
 template<class T>
 bool Vector<T>::empty()
 {
-    return (_size_ == 0);
+    return (m_size == 0);
 }
 template<class T>
 T& Vector<T>::operator[](int index)
 {
-    if (index >= _size_)
+    if (index >= m_size)
         throw std::out_of_range("List out of range");
     return v[index];
 }
 template<class T>
 Vector<T>::Vector()
 {
-    _size_ = 0;
+    m_size = 0;
     _capacity_ = 0;
     v = nullptr;
 }
@@ -33,15 +33,15 @@ Vector<T>::Vector(const Vector<T>& other)
     {
         v[i] = other.v[i];
     }
-    _size_ = other._size_;
+    m_size = other.m_size;
     _capacity_ = other._capacity_;
 }
 template<class T>
 Vector<T>::Vector(Vector<T>&& other) noexcept
-: v(other.v), _size_(other._size_), _capacity_(other._capacity_)
+: v(other.v), m_size(other.m_size), _capacity_(other._capacity_)
 {
     other.v = nullptr;
-    other._size_ = 0;
+    other.m_size = 0;
 }
 template<class T>
 Vector<T>& Vector<T>::operator= (const Vector<T>& other)
@@ -54,7 +54,7 @@ Vector<T>& Vector<T>::operator= (const Vector<T>& other)
     {
         v[i] = other.v[i];
     }
-    _size_ = other._size_;
+    m_size = other.m_size;
     _capacity_ = other._capacity_;
     return *this;
 }
@@ -64,11 +64,11 @@ Vector<T>& Vector<T>::operator= (Vector<T>&& other) noexcept
     if (&other == this)
         return *this;
     delete[] v;
-    _size_ = other._size_;
+    m_size = other.m_size;
     _capacity_ = other._capacity_;
     v = other.v;
     other.v = nullptr;
-    other._size_ = 0;
+    other.m_size = 0;
     other._capacity_ = 0;
     return* this;
 }
@@ -76,11 +76,11 @@ template<class T>
 void Vector<T>::grow(size_t new_capacity)
 {
         T *new_array = new T[new_capacity];
-        for (int i = 0; i < _size_; i++)
+        for (int i = 0; i < m_size; i++)
             new_array[i] = v[i];
         delete [] v;
         v = new T[new_capacity];
-        for (int i = 0; i < 2*_size_; i++)
+        for (int i = 0; i < 2*m_size; i++)
             v[i] = new_array[i];
         _capacity_ = new_capacity;
         delete[] new_array;
@@ -90,15 +90,15 @@ void Vector<T>::resize(size_t new_size, T default_value) {
     if(new_size > _capacity_) {
         grow(new_size * 2);
     }
-        for (int i = _size_; i < new_size; i++)
+        for (int i = m_size; i < new_size; i++)
             v[i] = default_value;
-        _size_ = new_size;
+        m_size = new_size;
 }
 template<class T>
 Vector<T>::Vector(size_t size, T default_value)
 {
     _capacity_ = size*2;
-    _size_ = size;
+    m_size = size;
     v = new T[_capacity_];
     for (int i = 0; i < _capacity_; i++)
     {
@@ -108,10 +108,10 @@ Vector<T>::Vector(size_t size, T default_value)
 template<class T>
 template<typename...Args>
 T Vector<T>::emplace_back(Args&&... args) {
-    if (_size_ == _capacity_) {
+    if (m_size == _capacity_) {
         grow((_capacity_+1)*2);
     }
-        return *new(v + _size_++) T(std::forward<Args>(args)...);
+        return *new(v + m_size++) T(std::forward<Args>(args)...);
 }
 template<class T>
 T Vector<T>::push_back(const T& elem){
@@ -121,8 +121,8 @@ template<class T>
 
 Vector<T>::Vector(const std::initializer_list<T>& l)
 {
-    _size_ = l.size();
-    _capacity_ = _size_ * 2;
+    m_size = l.size();
+    _capacity_ = m_size * 2;
     v = new T[_capacity_];
     int i = 0;
     for(const auto elem: l)
@@ -135,6 +135,6 @@ void Vector<T>::clear()
 {
     delete[] v;
     v = nullptr;
-    _size_ = 0;
+    m_size = 0;
     _capacity_ = 0;
 }

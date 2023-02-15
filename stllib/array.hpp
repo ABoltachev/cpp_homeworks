@@ -8,7 +8,7 @@
 template<typename T, size_t len>
 class Array{
     T arr[len];
-    size_t _size_ = len;
+    size_t m_size = len;
 public:
     int size();
     Array(const std::initializer_list<T>& l);
@@ -17,5 +17,5 @@ public:
     T& operator[](int index);
 };
 
-#include "array.tpp"
+#include "../array.tpp"
 #endif //UNTITLED15_ARRAY_HPP

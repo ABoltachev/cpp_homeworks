@@ -4,7 +4,6 @@
 
 #ifndef UNTITLED15_SET_HPP
 #define UNTITLED15_SET_HPP
-#pragma once
 #include<iostream>
 #include "algorithms.hpp"
 template<class T>
@@ -16,8 +15,8 @@ class Set
         Node* left = nullptr;
         Node* right = nullptr;
     };
-    size_t _size_ = 0;
-    Node* _head_ = nullptr;
+    size_t m_size = 0;
+    Node* m_head = nullptr;
     static Node* add_to_tree(Node* head, T elem);
     static Node* clear_tree(Node* head);
     static Node* find_node_to_emplace(Node* head, T elem);

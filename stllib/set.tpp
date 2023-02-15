@@ -84,22 +84,22 @@ typename Set<T>::Node* Set<T>::find_node_to_emplace(Set<T>::Node* head, T elem)
 template<class T>
 size_t Set<T>::size()
 {
-    return _size_;
+    return m_size;
 }
 template<class T>
 bool Set<T>::empty()
 {
-    return _size_ == 0;
+    return m_size == 0;
 }
 template<class T>
 bool Set<T>::find(T elem)
 {
-    return (find_in_tree(_head_, elem) != nullptr);
+    return (find_in_tree(m_head, elem) != nullptr);
 }
 template<class T>
 T Set<T>::top()
 {
-    Set<T>::Node* head = _head_;
+    Set<T>::Node* head = m_head;
     while(head->right)
     {
         head = head->right;
@@ -109,30 +109,30 @@ T Set<T>::top()
 template<class T>
 T Set<T>::insert(const T& elem)
 {
-    _head_ = add_to_tree(_head_, elem);
-    _size_++;
+    m_head = add_to_tree(m_head, elem);
+    m_size++;
     return elem;
 }
 template<class T>
 Set<T>::Set(const Set<T>& other)
 {
-    _head_ = copy(other._head_);
-    _size_ = other._size_;
+    m_head = copy(other.m_head);
+    m_size = other.m_size;
 }
 template<class T>
-Set<T>::Set(Set<T>&& other)noexcept: _head_(other._head_),_size_(other._size_)
+Set<T>::Set(Set<T>&& other)noexcept: m_head(other.m_head),m_size(other.m_size)
 {
-    other._head_ = nullptr;
-    other._size_ = 0;
+    other.m_head = nullptr;
+    other.m_size = 0;
 }
 template<class T>
 Set<T>& Set<T>::operator= (const Set<T>& other)
 {
     if (&other == this)
         return *this;
-    _head_ = clear_tree(_head_);
-    _head_ = copy(other._head_);
-    _size_ = other._size_;
+    m_head = clear_tree(m_head);
+    m_head = copy(other.m_head);
+    m_size = other.m_size;
     return *this;
 }
 template<class T>
@@ -140,18 +140,18 @@ Set<T>& Set<T>::operator= (Set<T>&& other) noexcept
 {
     if (&other == this)
         return *this;
-    _head_ = clear_tree(_head_);
-    _size_ = other._size_;
-    _head_= other._head_;
-    other._head_ = nullptr;
-    other._size_ = 0;
+    m_head = clear_tree(m_head);
+    m_size = other.m_size;
+    m_head= other.m_head;
+    other.m_head = nullptr;
+    other.m_size = 0;
     return *this;
 }
 template<class T>
 template<typename...Args>
 T Set<T>::emplace(Args&&...args)
 {
-    Set<T>::Node* curr_node = find_node_to_emplace(_head_,T(std::forward<Args>(args)...));
+    Set<T>::Node* curr_node = find_node_to_emplace(m_head,T(std::forward<Args>(args)...));
     if (curr_node->data < T(std::forward<Args>(args)...))
     {
         curr_node->right = new Set<T>::Node();
@@ -167,16 +167,16 @@ T Set<T>::emplace(Args&&...args)
 template<class T>
 Set<T>::Set(const std::initializer_list<T>& l)
 {
-    _size_ = l.size();
+    m_size = l.size();
     int i = 0;
     for(const auto elem: l)
     {
-        _head_ = add_to_tree(_head_, elem);
+        m_head = add_to_tree(m_head, elem);
     }
 }
 template<class T>
 void Set<T>::clear()
 {
-    _head_ = clear_tree(_head_);
-    _size_ = 0;
+    m_head = clear_tree(m_head);
+    m_size = 0;
 }

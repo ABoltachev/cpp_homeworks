@@ -29,8 +29,8 @@ void sort(Vector<T>& container)
                 container[j+1] = temp;
             }
 }
-template<class T>
-auto min(T container)
+template<class T, size_t len>
+T min(Array<T, len> container)
 {
     if (container.size() == 0)
         throw std::out_of_range("container is empty");
@@ -40,31 +40,53 @@ auto min(T container)
             result = container[i];
     return result;
 }
-template<class data_type>
-data_type min(Set<data_type> set)
+template<class T>
+T min(Vector<T> container)
+{
+    if (container.size() == 0)
+        throw std::out_of_range("container is empty");
+    auto result = container[0];
+    for (int i = 1; i < container.size(); i++)
+        if (result > container[i])
+            result = container[i];
+    return result;
+}
+template<class T>
+T min(Set<T> set)
 {
     if (set.size() == 0)
         throw std::out_of_range("container is empty");
-    typename Set<data_type>::Node* curr_node = set._head_;
+    typename Set<T>::Node* curr_node = set.m_head;
     while(curr_node->left)
     {
         curr_node = curr_node->left;
     }
     return curr_node->data;
 }
-template <class T>
-auto max(T container)
+template<class T, size_t len>
+T max(Array<T, len> container)
 {
     if (container.size() == 0)
-        throw std::length_error("container is empty");
+        throw std::out_of_range("container is empty");
     auto result = container[0];
     for (int i = 1; i < container.size(); i++)
-        if (result < container[i])
+        if (result > container[i])
             result = container[i];
     return result;
 }
-template <class data_type>
-data_type max(Set<data_type> set)
+template<class T>
+T max(Vector<T> container)
+{
+    if (container.size() == 0)
+        throw std::out_of_range("container is empty");
+    auto result = container[0];
+    for (int i = 1; i < container.size(); i++)
+        if (result > container[i])
+            result = container[i];
+    return result;
+}
+template <class T>
+T max(Set<T> set)
 {
     return set.top();
 }
@@ -91,7 +113,7 @@ data_type& find (Vector <data_type> container, data_type elem)
 template<class data_type>
 data_type& find(Set<data_type> set, data_type elem)
 {
-    typename Set<data_type>::Node* curr_node = set.find_in_tree(set._head_, elem);
+    typename Set<data_type>::Node* curr_node = set.find_in_tree(set.m_head, elem);
     if (curr_node)
         return curr_node->data;
     throw std::out_of_range("Not found");

@@ -4,13 +4,12 @@
 
 #ifndef UNTITLED15_VECTOR_H
 #define UNTITLED15_VECTOR_H
-#pragma once
 #include<iostream>
 template<class T>
 class Vector
 {
     T* v = nullptr;
-    size_t _size_;
+    size_t m_size;
     size_t _capacity_;
     void grow(size_t new_capacity);
 public:
