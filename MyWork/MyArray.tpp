@@ -26,9 +26,11 @@ namespace MyStdLib
     template<typename T, size_t arr_size>
     MyArray<T, arr_size>::MyArray(const std::initializer_list<T>& values) {
         auto it = values.begin();
-        for(int i = 0; (it != values.end()) && (i < arr_size); ++i) {
+        int i;
+        for(i = 0; (it != values.end()) && (i < arr_size); ++i) {
             this->m_arr[i] = *(it++);
         }
+
     } // Забивает значениями по максимуму
 
     template<typename T, size_t arr_size>
@@ -46,6 +48,14 @@ namespace MyStdLib
 
     template<typename T, size_t arr_size>
     T& MyArray<T, arr_size>::operator[](size_t ind) {
+        if (ind >= arr_size) {
+            throw std::out_of_range{"Out of range"};
+        }
+        return this->m_arr[ind];
+    }
+
+    template<typename T, size_t arr_size>
+    const T& MyArray<T, arr_size>::operator[](size_t ind) const {
         if (ind >= arr_size) {
             throw std::out_of_range{"Out of range"};
         }

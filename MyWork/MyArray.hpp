@@ -35,6 +35,8 @@ namespace MyStdLib {
         bool empty() const;
         
         T& operator[](size_t ind);
+
+        const T& operator[](size_t ind) const;
         
         void display_temp() const;
 

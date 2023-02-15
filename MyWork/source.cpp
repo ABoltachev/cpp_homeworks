@@ -137,6 +137,12 @@ int main() {
     MyStdLib::find(ts, 1) -= 1;
     std::cout << "find(set, 1) -= 1, now set: " << ts << std::endl;
 
+    const MyStdLib::MyArray<int, 5> carr {2, 3, 4, 5, 3};
+    std::cout << std::endl << "const carr[2]: " << carr[2] << std::endl;
+
+    const MyStdLib::MyVector<int> cvec {2, 3, 4, 5, 3};
+    std::cout << "const cvec[2]: " << cvec[2] << std::endl;
+
     return 0;
 }
 

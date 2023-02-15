@@ -101,6 +101,15 @@ namespace MyStdLib {
 
 
     template<typename T>
+    const T& MyVector<T>::operator[](size_t ind) const {
+        if (ind >= m_size) {
+            throw std::out_of_range("out of range");
+        }
+        return values[ind];
+    }
+
+
+    template<typename T>
     MyVector<T>& MyVector<T>::operator=(const MyVector<T>& vector) {
         copy_vec(*this, vector);
         return *this;

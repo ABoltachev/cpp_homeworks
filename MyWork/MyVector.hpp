@@ -50,6 +50,8 @@ namespace MyStdLib {
 
         T& operator[](size_t ind);
 
+        const T& operator[](size_t ind) const;
+
         MyVector<T>& operator=(const MyVector<T>& vector);
 
         MyVector<T>& operator=(MyVector<T>&& vector);
