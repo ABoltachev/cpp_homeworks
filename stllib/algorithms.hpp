@@ -13,9 +13,9 @@
 
 #pragma once
 
-#include "MyArray.hpp"
-#include "MyVector.hpp"
-#include "MySet.hpp"
+#include "array.hpp"
+#include "vector.hpp"
+#include "set.hpp"
 
 namespace UberAlgorithms {
     using namespace UberClasses;
@@ -27,31 +27,31 @@ namespace UberAlgorithms {
     void sort(Vector<T>& cont);
 
     template<typename T, size_t size>
-    T& min(Array<T, size>& cont);
+    T min(Array<T, size>& cont);
 
     template<typename T, size_t size>
-    T& max(Array<T, size>& cont);
+    T max(Array<T, size>& cont);
 
     template<typename T, size_t size>
-    T& find(Array<T, size>& cont, const T& elem);
+    T find(Array<T, size>& cont, const T& elem);
 
     template<typename T>
-    T& min(Vector<T>& cont);
+    T min(Vector<T>& cont);
 
     template<typename T>
-    T& max(Vector<T>& cont);
+    T max(Vector<T>& cont);
 
     template<typename T>
-    T& find(Vector<T>& cont, const T& elem);
+    T find(Vector<T>& cont, const T& elem);
 
     template<typename T>
-    T& min(Set<T>& cont);
+    T min(Set<T>& cont);
 
     template<typename T>
-    T& max(Set<T>& cont);
+    T max(Set<T>& cont);
 
     template<typename T>
-    T& find(Set<T>& cont, const T& elem);
+    T find(Set<T>& cont, const T& elem);
 }
 
 #include "algorithms.tpp"

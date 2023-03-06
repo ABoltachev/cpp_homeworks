@@ -3,9 +3,10 @@
 #include <stdexcept>
 
 namespace UberClasses {
-    Set<T>::Node::Node(const Node* &new_node) {
+    template<typename T>
+    Node<T>::Node(const Node<T>* &new_node) {
         if (!new_node)
-            throw std::std::logic_error("New Node does not exists");
+            throw std::logic_error("New Node does not exists");
 
         value = new_node->value;
         if (new_node->right)
@@ -27,11 +28,11 @@ namespace UberClasses {
     }
 
     template<typename T>
-    Set<T>::bool find(const T& elem) {
+    bool Set<T>::find(const T& elem) {
         if (!m_root)
             throw std::out_of_range("Set is empty");
 
-        Node* tmpPtr = m_root;
+        Node<T>* tmpPtr = m_root;
         while (tmpPtr) {
             if (tmpPtr->value == elem)
                 return true;
@@ -45,25 +46,25 @@ namespace UberClasses {
     }
 
     template<typename T>
-    Set<T>::T& top() {
+    T& Set<T>::top() {
         if (!m_root)
             throw std::out_of_range("Set is empty");
 
-        Node* tmpPtr = m_root;
+        Node<T>* tmpPtr = m_root;
         while (tmpPtr->right != nullptr)
             tmpPtr = tmpPtr->right;
         return (*tmpPtr).value;
     }
 
     template<typename T>
-    Set<T>::void insert(const T& elem) {
+    void Set<T>::insert(const T& elem) {
         if (!m_root) {
             m_root = new Node(elem);
             m_size += 1;
             return;
         }
 
-        Node* tmpPtr = m_root;
+        Node<T>* tmpPtr = m_root;
         while (tmpPtr->left != tmpPtr->right) {
             if (tmpPtr->value == elem)
                 return;
@@ -88,14 +89,14 @@ namespace UberClasses {
     }
 
     template<typename T>
-    Set<T>::void emplace(T&& elem) {
+    void Set<T>::emplace(T&& elem) {
         if (!m_root) {
             m_root = new Node(std::move(elem));
             m_size += 1;
             return;
         }
 
-        Node* tmpPtr = m_root;
+        Node<T>* tmpPtr = m_root;
         while (tmpPtr->left != tmpPtr->right) {
             if (tmpPtr->value == elem)
                 return;
@@ -121,7 +122,7 @@ namespace UberClasses {
 
 
     template<typename T>
-    Set<T>::Set& operator= (const Set<T>& another) {
+    Set<T>& Set<T>::operator= (const Set<T>& another) {
         m_size = another.size;
         if (this != &another) {
             clear();
@@ -131,7 +132,7 @@ namespace UberClasses {
     }
 
     template<typename T>
-    Set<T>::Set& operator= (Set<T>&& another) {
+    Set<T>& Set<T>::operator= (Set<T>&& another) {
         m_root = another.root;
         m_size = another.size;
         another.root = nullptr;
@@ -140,7 +141,7 @@ namespace UberClasses {
     }
 
     template<typename T>
-    Set<T>::Node* copyTree() {
+    Node<T>* Set<T>::copyTree() {
         return (m_root) ? new Node(m_root): nullptr;
     }
 }
