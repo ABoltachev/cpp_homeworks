@@ -10,3 +10,50 @@
      * range(int stop)
      * range(int start, int stop, int step=1)
 */
+
+#pragma once
+
+#include <iostream>
+#include <stdexcept>
+
+#include "array.hpp"
+#include "set.hpp"
+#include "vector.hpp"
+namespace stl
+{
+
+template <typename T, size_t _size>
+void sort(Array<T, _size>& array);
+
+template <typename T>
+void sort(Vector<T>& vector);
+
+template <typename T, size_t _size>
+T& min(const Array<T, _size>& array);
+
+template <typename T, size_t _size>
+T& max(const Array<T, _size>& array);
+
+template <typename T>
+T& min(const Vector<T>& vector);
+
+template <typename T>
+T& max(const Vector<T>& vector);
+
+template <typename T>
+T& min(const Set<T>& set);
+
+template <typename T>
+T& max(const Set<T>& set);
+
+template <typename T, size_t _size>
+T& find(const Array<T, _size>& array, const T& value);
+
+template <typename T>
+T& find(const Vector<T>& vector, const T& value);
+
+template <typename T>
+T& find(const Set<T>& set, const T& value);
+}  // namespace stl
+
+#include "alghoritms.tpp"
