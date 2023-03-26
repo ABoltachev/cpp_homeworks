@@ -10,3 +10,48 @@
      * range(int stop)
      * range(int start, int stop, int step=1)
 */
+
+#pragma once
+
+#include "array.hpp"
+#include "vector.hpp"
+#include "set.hpp"
+
+namespace UberAlgorithms {
+    using namespace UberClasses;
+
+    template<typename T, size_t size>
+    void sort(Array<T, size>& cont);
+
+    template<typename T>
+    void sort(Vector<T>& cont);
+
+    template<typename T, size_t size>
+    T min(Array<T, size>& cont);
+
+    template<typename T, size_t size>
+    T max(Array<T, size>& cont);
+
+    template<typename T, size_t size>
+    T find(Array<T, size>& cont, const T& elem);
+
+    template<typename T>
+    T min(Vector<T>& cont);
+
+    template<typename T>
+    T max(Vector<T>& cont);
+
+    template<typename T>
+    T find(Vector<T>& cont, const T& elem);
+
+    template<typename T>
+    T min(Set<T>& cont);
+
+    template<typename T>
+    T max(Set<T>& cont);
+
+    template<typename T>
+    T find(Set<T>& cont, const T& elem);
+}
+
+#include "algorithms.tpp"
