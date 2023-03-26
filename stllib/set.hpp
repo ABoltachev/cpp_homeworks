@@ -1,12 +1,41 @@
-/*
-* set и методы для него (для реализации использовать простое бинарное дерево, соответственно использовать можно только с данными, которые имеют оператор <):
-    size (возвращает размер)
-    empty (возвращает true если пустой)
-    top (возвращает большее значение)
-    find (поиск элемента, true - нашли, false - нет)
-    insert (вставка (копирование))
-    emplace (вставка (перемещение))
-    clear (очистка
-    присваивание (копирование и перемещением)
-    конструкторы (конструктор без аргументов; копирования; перемещения; конструктор с std::inizialized_list)
-*/
+#pragma once
+
+namespace algo
+{
+	template <typename type>
+	class set
+	{
+	private:
+		struct node_set
+		{
+			node_set();
+			node_set(const node_set& _node_set);
+			node_set* left;
+			node_set* right;
+			void clear_childs();
+			type value;
+		};
+		node_set* head;
+		size_t __size__;
+	public:
+		set();
+		set(const set<type>& _set);
+		set(const std::initializer_list<type>& init_list);
+		set(set<type>&& _set);
+		size_t size() const;
+		bool empty() const;
+		void emplace(type&& value) noexcept;
+		const type& top() const;
+		const type& bottom() const;
+		bool find(const type& value) const;
+		void insert(const type& value);
+		void clear();
+		const set<type>& operator=(const set<type>& _set);
+		const set<type>& operator=(set<type>&& _set);
+		~set();
+	private:
+		void check_empty() const;
+	};
+}
+
+#include "set.tpp"

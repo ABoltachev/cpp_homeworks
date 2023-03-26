@@ -1,12 +1,36 @@
-/*
-* vector и методы для него (самая простая реализация с использованием динамического массива, если размера не хватает, чтобы добавить эелемент в конец, просто расширяется в два раза):
-    size (возвращает размер)
-    empty (возвращает true если пустой)
-    взятие по индексу (operator[])
-    push_back (вставка в конец (копирование))
-    emplace_back (вставка в конце (перемещение))
-    clear (очистка)
-    resize (изменение размера, вторым аргументом идет аргумент по умолчанию, которым будут заполняться все места)
-    присваивание (копирование и перемещением)
-    конструкторы (конструктор без аргументов; первый аргумент размер, второй по умолчанию со значением, которым будут заполняться все места; копирования; перемещения; конструктор с std::inizialized_list)
-*/
+#pragma once
+
+#include <stdexcept>
+
+namespace algo
+{
+	template <typename type>
+	class vector
+	{
+	private:
+		type* data;
+		size_t __size__;
+		size_t __capacity__;
+	public:
+		vector(const size_t& __size__ = 0, const type& default_value = type());
+		vector(const std::initializer_list<type>& init_list);
+		vector(const vector<type>& _vector);
+		vector(vector<type>&& _vector) noexcept;
+		size_t size() const;
+		bool empty() const;
+		const vector<type>& operator=(const vector<type>& _vector);
+		const vector<type>& operator=(vector<type>&& _vector);
+		type& operator[](const size_t& index);
+		const type& operator[](const size_t& index) const;
+		void push_back(const type& value);
+		void emplace_back(type&& value) noexcept;
+		void resize(const size_t& __size__, const type& default_value = type());
+		void clear();
+		~vector();
+	private:
+		void check_index(const size_t& index) const;
+	};
+}
+
+#include "vector.tpp"
+
