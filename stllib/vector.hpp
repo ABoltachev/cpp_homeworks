@@ -1,12 +1,34 @@
-/*
-* vector и методы для него (самая простая реализация с использованием динамического массива, если размера не хватает, чтобы добавить эелемент в конец, просто расширяется в два раза):
-    size (возвращает размер)
-    empty (возвращает true если пустой)
-    взятие по индексу (operator[])
-    push_back (вставка в конец (копирование))
-    emplace_back (вставка в конце (перемещение))
-    clear (очистка)
-    resize (изменение размера, вторым аргументом идет аргумент по умолчанию, которым будут заполняться все места)
-    присваивание (копирование и перемещением)
-    конструкторы (конструктор без аргументов; первый аргумент размер, второй по умолчанию со значением, которым будут заполняться все места; копирования; перемещения; конструктор с std::inizialized_list)
-*/
+//
+// Created by home on 11.02.23.
+//
+
+#ifndef UNTITLED15_VECTOR_H
+#define UNTITLED15_VECTOR_H
+#include<iostream>
+template<class T>
+class Vector
+{
+    T* v = nullptr;
+    size_t m_size;
+    size_t m_capacity;
+    void grow(size_t new_capacity);
+public:
+    size_t size();
+    bool empty();
+    T& operator[](int index);
+    T push_back(const T& elem);
+    template<typename... Args>
+    T emplace_back(Args&&... args);
+    void clear();
+    void resize(size_t new_size, T default_value);
+    Vector();
+    Vector(size_t size, T default_value);
+    Vector(const Vector<T>& other);
+    Vector(Vector<T>&& other) noexcept;
+    Vector& operator= (const Vector<T>& other);
+    Vector& operator= (Vector<T>&& other) noexcept;
+    Vector(const std::initializer_list<T>& l);
+
+};
+#endif //UNTITLED15_VECTOR_H
+#include "vector.tpp"

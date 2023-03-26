@@ -1,8 +1,6 @@
-cmake_minimum_required(VERSION 3.16)
-
+cmake_minimum_required(VERSION 3.22)
 project(homeworks_tests)
 
 set(CMAKE_CXX_STANDARD 17)
-set(CMAKE_CXX_STANDARD_REQUIRED True)
 
-add_executable(main main.cpp)
+add_executable(main main.cpp stllib/array.hpp stllib/vector.hpp stllib/set.tpp stllib/set.hpp stllib/algorithms.hpp stllib/algorithms.tpp)
