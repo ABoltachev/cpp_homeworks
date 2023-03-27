@@ -1,12 +1,52 @@
-/*
-РќР° РІС…РѕРґ РєР°Р¶РґРѕРіРѕ Р°Р»РіРѕСЂРёС‚РјР° РїРѕРґР°РµС‚СЃСЏ РєРѕРЅС‚РµР№РЅРµСЂ, РєРѕС‚РѕСЂС‹Р№ РІС‹ СЂРµР°Р»РёР·РѕРІР°Р»Рё
- * sort (РїСЂРѕСЃС‚Р°СЏ СЃРѕСЂС‚РёСЂРѕРІРєР°, Р»РёР±Рѕ РїСѓР·С‹СЂСЊРєРѕРј, Р»РёР±Рѕ РІСЃС‚Р°РІРєР°РјРё)
- * max; min (РїРѕРёСЃРє РјР°РєСЃРёРјСѓРјР° Рё РјРёРЅРёРјСѓРјР° СЃРѕРѕС‚РІРµС‚СЃС‚РІРµРЅРЅРѕ)
- * find (РїРѕРёСЃРє СЌР»РµРјРµРЅС‚Р°, РІРѕР·РІСЂР°С‰Р°РµС‚ СЃСЃС‹Р»РєСѓ РЅР° СЌР»РµРјРµРЅС‚, Р»РёР±Рѕ Р±СЂРѕСЃР°РµС‚ РёСЃРєР»СЋС‡РµРЅРёРµ runtime_error, РµСЃР»Рё РЅРµ РЅР°С€Р»Рѕ СЌР»РµРјРµРЅС‚)
+//        Также несколько алгоритмов :
+//*sort(простая сортировка, либо пузырьком, либо вставками)
+//* max; min(поиск максимума и минимума соответственно)
+//* find(поиск элемента, возвращает ссылку на элемент, либо бросает исключение runtime_error, если не нашло элемент)
+#ifndef ALGORITHMS_HPP
+#define ALGORITHMS_HPP
 
-Р”РѕРї Р·Р°РґР°РЅРёРµ (РґРѕРї Р±Р°Р»):
-    Р РµР°Р»РёР·РѕРІР°С‚СЊ С„СѓРЅРєС†РёСЋ range (Р°РЅР°Р»РѕРі С„СѓРЅРєС†РёРё РёР· Python) РїРѕ Р°РЅР°Р»РѕРіРёРё СЃ С„СѓРЅРєС†РёРµР№ enumerate СЃ СЃРµРјРёРЅР°СЂР°
-    Р”РѕР»Р¶РЅРѕ Р±С‹С‚СЊ 2 РїРµСЂРµРіСЂСѓР·РєРё
-     * range(int stop)
-     * range(int start, int stop, int step=1)
-*/
+#include "array.hpp"
+#include "vector.hpp"
+#include "set.hpp"
+
+namespace lib
+{
+	template <typename T, size_t arr_size>
+	T max(Array<T, arr_size>& arr);
+
+	template <typename T, size_t arr_size>
+	T min(Array<T, arr_size>& arr);
+
+	template <typename T, size_t arr_size>
+	void sort(Array<T, arr_size>& arr);
+
+	template <typename T, size_t arr_size>
+	T& find(Array<T, arr_size>& arr, const T& elem);
+
+
+	template<typename T>
+	T max(Vector<T>& vector);
+
+	template<typename T>
+	T min(Vector<T>& vector);
+
+	template<typename T>
+	void sort(Vector<T>& vector);
+
+	template<typename T>
+	T& find(Vector<T>& vector, const T& elem);
+	
+
+	template<typename T>
+	T max(Set<T>& set);
+
+	template<typename T>
+	T min(Set<T>& set);
+
+	template<typename T>
+	T& find(Set<T>& set, const T& elem);
+}
+
+#include "algorithms.tpp"
+
+#endif

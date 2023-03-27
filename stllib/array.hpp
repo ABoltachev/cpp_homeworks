@@ -1,8 +1,42 @@
-/*
-* array (СЃС‚Р°С‚РёС‡РµСЃРєРёР№ РјР°СЃСЃРёРІ) Рё РјРµС‚РѕРґС‹ РґР»СЏ РЅРµРіРѕ:
-    size (РІРѕР·РІСЂР°С‰Р°РµС‚ СЂР°Р·РјРµСЂ)
-    empty (РІРѕР·РІСЂР°С‰Р°РµС‚ true РµСЃР»Рё РїСѓСЃС‚РѕР№)
-    РІР·СЏС‚РёРµ РїРѕ РёРЅРґРµРєСЃСѓ (operator[])
-    РїСЂРёСЃРІР°РёРІР°РЅРёРµ РєРѕРїРёСЂРѕРІР°РЅРёРµРј
-    РєРѕРЅСЃС‚СЂСѓРєС‚РѕСЂС‹ (РєРѕРЅСЃС‚СЂСѓРєС‚РѕСЂ СЃ std::inizialized_list)
-*/
+//*array(статический массив) и методы для него :
+    //  +size(возвращает размер)
+    //  +empty(возвращает true если пустой)
+    //  +взятие по индексу(operator[])
+    //  +присваивание копированием
+    //  +конструкторы(конструктор с std::inizialized_list)
+
+#ifndef ARRAY_HPP
+#define ARRAY_HPP
+
+#include <iostream>
+#include <stdexcept>
+
+namespace lib {
+    template <typename T, size_t arr_size>
+    class Array
+    {
+    private:
+        T m_array[arr_size];
+        size_t m_size = arr_size;
+
+    public:
+        Array();
+
+        Array(std::initializer_list<T> list);
+
+        Array& operator=(const Array& arr);
+
+        T& operator[](size_t ind);
+        const T& operator[](size_t ind) const;
+
+        size_t size() const;
+        bool empty() const;
+
+        ~Array() = default;
+    };
+
+} 
+
+#include "array.tpp"
+
+#endif 
