@@ -1,12 +1,26 @@
-/*
-На вход каждого алгоритма подается контейнер, который вы реализовали
- * sort (простая сортировка, либо пузырьком, либо вставками)
- * max; min (поиск максимума и минимума соответственно)
- * find (поиск элемента, возвращает ссылку на элемент, либо бросает исключение runtime_error, если не нашло элемент)
+#ifndef ALGORITHMS_HPP
+#define ALGORITHMS_HPP
 
-Доп задание (доп бал):
-    Реализовать функцию range (аналог функции из Python) по аналогии с функцией enumerate с семинара
-    Должно быть 2 перегрузки
-     * range(int stop)
-     * range(int start, int stop, int step=1)
-*/
+#include "vector.hpp"
+#include "array.hpp"
+
+namespace stl {
+    template<class T, size_t array_size>
+    void sort(Array<T, array_size> &container);
+
+    template<class T>
+    auto min(T container);
+
+    template<class T>
+    auto max(T container);
+
+    template<class data_type, size_t array_size>
+    data_type &find(Array<data_type, array_size> container, data_type elem);
+
+    template<class data_type>
+    data_type &find(Vector<data_type> container, data_type elem);
+}
+
+#include "algorithms.tpp"
+
+#endif
