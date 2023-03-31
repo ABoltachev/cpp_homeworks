@@ -1,8 +1,5 @@
 #include <iostream>
-#include "stllib/array.hpp"
-#include "stllib/vector.hpp"
-#include "stllib/set.hpp"
-#include "stllib/algorithms.hpp"
+#include "matrix.hpp"
 using namespace std;
 
 int main() {
