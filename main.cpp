@@ -1,5 +1,6 @@
 #include <iostream>
-#include "EmpLib.h"
+#include "matrix.hpp"
+using namespace std;
 
 int main() {
     std::cout << "Hello, test!" << std::endl;
